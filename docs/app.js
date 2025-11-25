@@ -1,7 +1,8 @@
 // GitHub Pages aware frontend
 // If running on github.io we disable upload and show bundled demo assets
 
-const isPages = location.hostname.includes('github.io') || location.pathname.startsWith('/');
+const isPages = location.hostname.includes('github.io');
+const basePath = isPages ? '/Gog-Database' : '';
 
 async function fetchFiles() {
   // legacy gallery (uploads)
@@ -11,13 +12,13 @@ async function fetchFiles() {
     // Try to load a static manifest placed in docs/ so Pages can show the DB.
     el.innerHTML = '';
     try {
-      const m = await fetch('/docs/gogs-list.json');
+      const m = await fetch(`${basePath}/docs/gogs-list.json`);
       if (m.ok) {
         const items = await m.json();
         if (Array.isArray(items) && items.length) {
           for (const it of items) {
             const img = document.createElement('img');
-            img.src = it.url;
+            img.src = `${basePath}${it.url.replace('/docs', '')}`;
             img.alt = it.name;
             el.appendChild(img);
           }
@@ -31,9 +32,9 @@ async function fetchFiles() {
 
     // Fallback demo assets (bundled)
     const demo = [
-      '/docs/assets/gog1.svg',
-      '/docs/assets/gog2.svg',
-      '/docs/assets/gog3.svg'
+      `${basePath}/docs/assets/gog1.svg`,
+      `${basePath}/docs/assets/gog2.svg`,
+      `${basePath}/docs/assets/gog3.svg`
     ];
     for (const src of demo) {
       const img = document.createElement('img');
@@ -110,7 +111,8 @@ async function loadGogGrid() {
   const grid = document.getElementById('gogGrid');
   grid.innerHTML = '<p class="muted">Loading GOGs…</p>';
   try {
-    const res = isPages ? await fetch('/docs/gogs-list.json') : await fetch('/gogs-list');
+    const url = isPages ? `${basePath}/docs/gogs-list.json` : '/gogs-list';
+    const res = await fetch(url);
     const items = await res.json();
     if (!items || items.length === 0) {
       grid.innerHTML = '<p class="muted">No GOGs found in the server gogs/ folder.</p>';
@@ -122,7 +124,7 @@ async function loadGogGrid() {
       card.className = 'gog-item';
       const img = document.createElement('img');
       img.className = 'gog-thumb';
-      img.src = it.url;
+      img.src = isPages ? `${basePath}${it.url.replace('/docs', '')}` : it.url;
       img.alt = it.name;
       img.loading = 'lazy';
       const label = document.createElement('div');
@@ -148,7 +150,8 @@ async function loadRandomGog() {
   const box = document.getElementById('randomBox');
   box.innerHTML = '<p class="muted">Finding a random GOG…</p>';
   try {
-    const res = isPages ? await fetch('/docs/gogs-list.json') : await fetch('/gogs-list');
+    const url = isPages ? `${basePath}/docs/gogs-list.json` : '/gogs-list';
+    const res = await fetch(url);
     const items = await res.json();
     if (!items || items.length === 0) {
       box.innerHTML = '<p class="muted">No GOGs available</p>';
@@ -157,7 +160,7 @@ async function loadRandomGog() {
     const pick = items[Math.floor(Math.random() * items.length)];
     box.innerHTML = '';
     const img = document.createElement('img');
-    img.src = pick.url;
+    img.src = isPages ? `${basePath}${pick.url.replace('/docs', '')}` : pick.url;
     img.alt = pick.name;
     const name = document.createElement('div');
     name.className = 'gog-label';
