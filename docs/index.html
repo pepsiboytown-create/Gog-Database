@@ -1,22 +1,179 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>GOGs — Little silly characters</title>
-    <link rel="stylesheet" href="/Gog-Database/docs/styles.css" />
-  </head>
-  <body>
-    <header class="hero">
-      <h1>GOGs</h1>
-      <p class="tag">Tiny characters. Big personalities. Do silly things.</p>
-      <nav class="nav">
-        <button data-page="about">About GOGs</button>
-        <button data-page="db">GOG Database</button>
-        <button data-page="creators">GOG Creators</button>
-        <button data-page="random">Random GOG</button>
-      </nav>
-    </header>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>GOGs — Silly Little Characters</title>
+    <style>
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #16213e 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #f1f5f9;
+        }
+        .header {
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.05));
+            border-bottom: 1px solid rgba(99,102,241,0.2);
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 56px;
+            margin: 0 0 12px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #818cf8, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .tagline {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        .nav {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.05));
+            border: 1px solid rgba(99,102,241,0.3);
+            color: #818cf8;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .nav-btn:hover {
+            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(59,130,246,0.1));
+            border-color: #818cf8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99,102,241,0.2);
+        }
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h2 {
+            color: #f1f5f9;
+            margin-bottom: 24px;
+            font-size: 32px;
+            font-weight: 700;
+        }
+        .page {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gog-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .gog-item {
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(59,130,246,0.03));
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(99,102,241,0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .gog-item:hover {
+            border-color: rgba(99,102,241,0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(99,102,241,0.15);
+        }
+        .gog-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            display: block;
+        }
+        .gog-label {
+            padding: 12px;
+            font-weight: 600;
+            color: #818cf8;
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            font-size: 13px;
+            word-break: break-word;
+        }
+        .random-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(59,130,246,0.03));
+            border-radius: 16px;
+            border: 1px solid rgba(99,102,241,0.15);
+        }
+        .random-box img {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 20px 48px rgba(99,102,241,0.2);
+        }
+        .prose {
+            line-height: 1.8;
+            color: #cbd5e1;
+        }
+        .prose p, .prose ul, .prose ol {
+            margin: 16px 0;
+        }
+        .prose li { margin: 8px 0; }
+        .hidden { display: none !important; }
+        footer {
+            text-align: center;
+            color: #94a3b8;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(99,102,241,0.1);
+        }
+        @media (max-width: 900px) {
+            .gog-grid { grid-template-columns: repeat(3, 1fr); }
+            .random-box img { width: 220px; height: 220px; }
+            h1 { font-size: 48px; }
+        }
+        @media (max-width: 600px) {
+            .gog-grid { grid-template-columns: repeat(2, 1fr); }
+            h1 { font-size: 36px; }
+            .card-grid { flex-direction: column; }
+            .nav { gap: 6px; }
+            .nav-btn { padding: 8px 14px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>GOGs</h1>
+        <p class="tagline">Tiny characters. Big personalities. Do silly things.</p>
+        <div class="nav">
+            <button class="nav-btn" onclick="showPage('about')">About GOGs</button>
+            <button class="nav-btn" onclick="showPage('db')">GOG Database</button>
+            <button class="nav-btn" onclick="showPage('creators')">GOG Creators</button>
+            <button class="nav-btn" onclick="showPage('random')">Random GOG</button>
+        </div>
+    </div>
 
     <main class="container">
       <section id="about" class="page">
@@ -32,15 +189,15 @@
         </div>
       </section>
 
-      <section id="db" class="page" style="display:none">
+      <section id="db" class="page hidden">
         <h2>GOG Database</h2>
-        <p class="muted">Images read from the server `gogs/` folder. Click an image for a larger view.</p>
+        <p class="muted">Click an image to view it full size</p>
         <div id="gogGrid" class="gog-grid">
           <p class="muted">Loading GOGs…</p>
         </div>
       </section>
 
-      <section id="creators" class="page" style="display:none">
+      <section id="creators" class="page hidden">
         <h2>GOG Creators</h2>
         <div class="prose">
           <p>Meet the brilliant minds behind the GOGs:</p>
@@ -53,32 +210,93 @@
         </div>
       </section>
 
-      <section id="random" class="page" style="display:none">
+      <section id="random" class="page hidden">
         <h2>Random GOG</h2>
         <div id="randomBox" class="random-box">
           <p class="muted">Finding a random GOG…</p>
         </div>
       </section>
-
-      <section id="upload" class="page">
-        <h2>Upload a GOG image (protected)</h2>
-        <form id="uploadForm">
-          <label>Upload code
-            <input type="password" name="code" id="code" placeholder="enter code" required />
-          </label>
-          <label>File
-            <input type="file" name="file" id="file" accept="image/*" required />
-          </label>
-          <button type="submit">Upload</button>
-        </form>
-        <div id="uploadMsg" role="status"></div>
-      </section>
     </main>
 
-    <footer class="foot">
-      <small>GOGs — just for fun</small>
+    <footer>
+        <small>GOGs — just for fun</small>
     </footer>
 
-    <script src="/Gog-Database/docs/app.js"></script>
+    <script>
+        // Hardcoded GOG data with relative paths
+        const GOGS = [
+            { name: 'gog1', url: './gogs/gog1.svg' },
+            { name: 'gog2', url: './gogs/gog2.svg' },
+            { name: 'gog3', url: './gogs/gog3.svg' },
+            { name: 'gog4', url: './gogs/gog4.svg' }
+        ];
+
+        function showPage(name) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            
+            // Show selected page
+            const el = document.getElementById(name);
+            if (el) {
+                el.classList.remove('hidden');
+                
+                // Load content for specific pages
+                if (name === 'db') loadGogGrid();
+                if (name === 'random') loadRandomGog();
+            }
+        }
+
+        function loadGogGrid() {
+            const grid = document.getElementById('gogGrid');
+            
+            // Clear loading message
+            if (grid.innerHTML.includes('Loading GOGs')) {
+                grid.innerHTML = '';
+            }
+            
+            // Create grid items
+            for (const gog of GOGS) {
+                const card = document.createElement('div');
+                card.className = 'gog-item';
+                
+                const img = document.createElement('img');
+                img.className = 'gog-img';
+                img.src = gog.url;
+                img.alt = gog.name;
+                img.loading = 'lazy';
+                
+                const label = document.createElement('div');
+                label.className = 'gog-label';
+                label.textContent = gog.name;
+                
+                card.appendChild(img);
+                card.appendChild(label);
+                card.addEventListener('click', () => window.open(gog.url, '_blank'));
+                
+                grid.appendChild(card);
+            }
+        }
+
+        function loadRandomGog() {
+            const box = document.getElementById('randomBox');
+            const gog = GOGS[Math.floor(Math.random() * GOGS.length)];
+            
+            box.innerHTML = '';
+            
+            const img = document.createElement('img');
+            img.src = gog.url;
+            img.alt = gog.name;
+            
+            const label = document.createElement('div');
+            label.className = 'gog-label';
+            label.textContent = gog.name;
+            
+            box.appendChild(img);
+            box.appendChild(label);
+        }
+
+        // Initialize: show about page on load
+        showPage('about');
+    </script>
   </body>
 </html>
