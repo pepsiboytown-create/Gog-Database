@@ -10,38 +10,57 @@
     <header class="hero">
       <h1>GOGs</h1>
       <p class="tag">Tiny characters. Big personalities. Do silly things.</p>
+      <nav class="nav">
+        <button data-page="about">About GOGs</button>
+        <button data-page="db">GOG Database</button>
+        <button data-page="creators">GOG Creators</button>
+        <button data-page="random">Random GOG</button>
+      </nav>
     </header>
 
     <main class="container">
-      <section id="characters">
-        <h2>Meet some GOGs</h2>
-        <div class="cards">
-          <div class="card">
-            <div class="gog gog-blue">G</div>
-            <h3>Gogo</h3>
-            <p>Loves to juggle moons.</p>
-          </div>
-          <div class="card">
-            <div class="gog gog-pink">O</div>
-            <h3>Ono</h3>
-            <p>Always trips on tiny planets.</p>
-          </div>
-          <div class="card">
-            <div class="gog gog-green">G</div>
-            <h3>Gum</h3>
-            <p>Collects shiny pebbles.</p>
-          </div>
+      <section id="about" class="page">
+        <h2>About GOGs</h2>
+        <div class="prose">
+          <p>GOGs are ancient cosmic beings that accidentally discovered tacos and then taught whole civilisations how to moonwalk. They've won more awards than there are stars, including the prestigious "Golden Pebble of Honor" (won 27 times). Every year a GOG climbs the highest cloud to perform the Ritual of Plenty — this is how seasons are invented.</p>
+          <p>Recent accomplishments:</p>
+          <ul>
+            <li>Built the first intergalactic pogo stick factory.</li>
+            <li>Invented vertical rain (it falls up on Tuesdays).</li>
+            <li>Hired three thousand squirrels as official taste-testers.</li>
+          </ul>
         </div>
       </section>
 
-      <section id="gallery">
-        <h2>Gallery</h2>
-        <div id="files" class="gallery">
-          <p class="muted">Loading uploads…</p>
+      <section id="db" class="page" style="display:none">
+        <h2>GOG Database</h2>
+        <p class="muted">Images read from the server `gogs/` folder. Click an image for a larger view.</p>
+        <div id="gogGrid" class="gog-grid">
+          <p class="muted">Loading GOGs…</p>
         </div>
       </section>
 
-      <section id="upload">
+      <section id="creators" class="page" style="display:none">
+        <h2>GOG Creators</h2>
+        <div class="prose">
+          <p>Meet the brilliant minds behind the GOGs:</p>
+          <ol>
+            <li>Prof. Whimsy B. Snick — Head of Unreliable Inventions</li>
+            <li>Dr. Luna Marshmallow — Director of Moon Juggling</li>
+            <li>Captain Sprout — Logistics and Interplanetary Post</li>
+          </ol>
+          <p>They prefer being paid in cookie crumbs and very small hats.</p>
+        </div>
+      </section>
+
+      <section id="random" class="page" style="display:none">
+        <h2>Random GOG</h2>
+        <div id="randomBox" class="random-box">
+          <p class="muted">Finding a random GOG…</p>
+        </div>
+      </section>
+
+      <section id="upload" class="page">
         <h2>Upload a GOG image (protected)</h2>
         <form id="uploadForm">
           <label>Upload code
