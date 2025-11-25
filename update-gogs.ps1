@@ -29,7 +29,9 @@ try {
     
     foreach ($file in $gogFiles) {
         $name = $file.BaseName
-        $entry = "            { name: '$name', url: './gogs/$($file.Name)' }"
+        # Use double quotes to properly handle apostrophes
+        $name = $name -replace '"', '\"'
+        $entry = "            { name: `"$name`", url: `"./gogs/$($file.Name)`" }"
         $gogArray += $entry
     }
     
