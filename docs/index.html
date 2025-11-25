@@ -260,6 +260,9 @@
             border: 1px solid rgba(99,102,241,0.2);
             backdrop-filter: blur(8px);
             transition: all 0.3s ease;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
         }
         .accomplishment-card:hover {
             border-color: rgba(99,102,241,0.5);
@@ -267,16 +270,33 @@
             box-shadow: 0 8px 20px rgba(99,102,241,0.1);
             background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.05));
         }
+        .accomplishment-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid rgba(99,102,241,0.3);
+        }
+        .accomplishment-content {
+            flex: 1;
+        }
         .accomplishment-card::before {
-            content: "✨";
-            display: inline-block;
-            margin-right: 8px;
-            font-size: 16px;
+            content: "";
+            display: none;
         }
         .accomplishment-text {
             color: #cbd5e1;
             font-size: 14px;
             line-height: 1.5;
+            margin: 0;
+        }
+        .accomplishment-creator {
+            color: #818cf8;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 4px;
+            font-style: italic;
         }
         h2 {
             position: relative;
@@ -331,31 +351,8 @@
           <p>GOGs are ancient cosmic beings that accidentally discovered tacos and then taught whole civilisations how to moonwalk. They've won more awards than there are stars, including the prestigious "Golden Pebble of Honor" (won 27 times). Every year a GOG climbs the highest cloud to perform the Ritual of Plenty — this is how seasons are invented.</p>
         </div>
         <h2 style="margin-top: 32px;">Epic Accomplishments</h2>
-        <div class="accomplishment-grid">
-          <div class="accomplishment-card"><div class="accomplishment-text">Built the first intergalactic pogo stick factory (still operational on Mars).</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Invented vertical rain (it falls up every Tuesday at precisely 3:47 PM).</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Hired three thousand squirrels as official taste-testers.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Taught dolphins to speak fluent Klingon.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Created the first cloud made entirely of cotton candy (location classified).</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Invented backwards walking as a competitive Olympic sport.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Won a staring contest with the sun (sun forfeited after 47 days).</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Successfully taught gravity to take naps on Thursdays.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Created the first restaurant that serves invisible soup (5-star reviews).</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Built a bridge from the Earth to the Moon using only string cheese.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Invented shoes that make people walk backwards through time (mostly safe).</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Taught penguins to tap dance while humming the Macarena.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Created a new color called "Blurple" that doesn't exist in normal dimensions.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Won the intergalactic karaoke championship 23 years running.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Taught clouds to make it rain upside-down pancakes (with syrup).</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Built the first sentient refrigerator with PhD in philosophy.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Created a language that only uses interpretive dance.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Convinced squirrels to unionize and demand better acorn benefits.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Invented socks that never get lost in the laundry (95% success rate).</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Taught birds to form a synchronized swimming team in the air.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Created a pizza that tastes different every time you eat it.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Built a skateboard that works on water and lava.</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Invented mirrors that show your future self (accuracy not guaranteed).</div></div>
-          <div class="accomplishment-card"><div class="accomplishment-text">Taught snakes to solve Rubik's cubes (no hands required).</div></div>
+        <div class="accomplishment-grid" id="accomplishmentGrid">
+          <!-- Accomplishments will be populated by JavaScript -->
         </div>
       </section>
 
@@ -573,7 +570,96 @@
             box.appendChild(label);
         }
 
+        // Accomplishment data with GOG achievements
+        const ACCOMPLISHMENTS = [
+            { text: "Built the first intergalactic pogo stick factory (still operational on Mars).", creator: "bunnygog" },
+            { text: "Invented vertical rain (it falls up every Tuesday at precisely 3:47 PM).", creator: "crazy gog" },
+            { text: "Hired three thousand squirrels as official taste-testers.", creator: "gogland forever" },
+            { text: "Taught dolphins to speak fluent Klingon.", creator: "nerdy gog" },
+            { text: "Created the first cloud made entirely of cotton candy (location classified).", creator: "magical gog fairy" },
+            { text: "Invented backwards walking as a competitive Olympic sport.", creator: "emo gog" },
+            { text: "Won a staring contest with the sun (sun forfeited after 47 days).", creator: "bat gog" },
+            { text: "Successfully taught gravity to take naps on Thursdays.", creator: "thirsty gog" },
+            { text: "Created the first restaurant that serves invisible soup (5-star reviews).", creator: "spongegog" },
+            { text: "Built a bridge from the Earth to the Moon using only string cheese.", creator: "brgogket" },
+            { text: "Invented shoes that make people walk backwards through time (mostly safe).", creator: "pyrogogiac" },
+            { text: "Taught penguins to tap dance while humming the Macarena.", creator: "pengog" },
+            { text: "Created a new color called 'Blurple' that doesn't exist in normal dimensions.", creator: "frgog" },
+            { text: "Won the intergalactic karaoke championship 23 years running.", creator: "saxgogphone" },
+            { text: "Taught clouds to make it rain upside-down pancakes (with syrup).", creator: "spongegog" },
+            { text: "Built the first sentient refrigerator with PhD in philosophy.", creator: "nerdy gog" },
+            { text: "Created a language that only uses interpretive dance.", creator: "gogbie" },
+            { text: "Convinced squirrels to unionize and demand better acorn benefits.", creator: "angergog" },
+            { text: "Invented socks that never get lost in the laundry (95% success rate).", creator: "plushigog" },
+            { text: "Taught birds to form a synchronized swimming team in the air.", creator: "goggle helios" },
+            { text: "Created a pizza that tastes different every time you eat it.", creator: "instagog" },
+            { text: "Built a skateboard that works on water and lava.", creator: "skelegog" },
+            { text: "Invented mirrors that show your future self (accuracy not guaranteed).", creator: "ROG" },
+            { text: "Taught snakes to solve Rubik's cubes (no hands required).", creator: "nerdy gog" },
+            { text: "Discovered how to make music from the sound of silence.", creator: "swimming gogs" },
+            { text: "Successfully negotiated peace between warring factions of talking toast.", creator: "war gogger" },
+            { text: "Created a self-referential painting that stares back at you.", creator: "gogland forever" },
+            { text: "Taught octopi to knit sweaters using all eight arms simultaneously.", creator: "plushigog" },
+            { text: "Invented a sport where the winner is whoever loses the hardest.", creator: "panic gog" },
+            { text: "Built a library that organizes books by feelings instead of alphabetical order.", creator: "nerdy gog" },
+            { text: "Made friends with a black hole (friendship status: complicated).", creator: "suspicious gog" },
+            { text: "Invented ice cream that tastes like nostalgia.", creator: "emo gog" },
+            { text: "Taught robots to appreciate bad dad jokes.", creator: "fnogs" },
+            { text: "Created the world's first upside-down mountain.", creator: "climbing gog" },
+            { text: "Convinced clouds to stop being so dramatic during storms.", creator: "chill gog" }
+        ];
+
+        function getRandomAccomplishments() {
+            // Shuffle and return first 28 accomplishments
+            const shuffled = [...ACCOMPLISHMENTS].sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, 28);
+        }
+
+        function getRandomGogImage() {
+            // Return a random GOG image
+            return GOGS[Math.floor(Math.random() * GOGS.length)];
+        }
+
+        function loadAccomplishments() {
+            const grid = document.getElementById('accomplishmentGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            const accomplishments = getRandomAccomplishments();
+            
+            accomplishments.forEach((acc) => {
+                const randomGog = getRandomGogImage();
+                
+                const card = document.createElement('div');
+                card.className = 'accomplishment-card';
+                
+                const avatar = document.createElement('img');
+                avatar.className = 'accomplishment-avatar';
+                avatar.src = randomGog.url;
+                avatar.alt = randomGog.name;
+                
+                const content = document.createElement('div');
+                content.className = 'accomplishment-content';
+                
+                const text = document.createElement('p');
+                text.className = 'accomplishment-text';
+                text.textContent = acc.text;
+                
+                const creator = document.createElement('div');
+                creator.className = 'accomplishment-creator';
+                creator.textContent = `— ${acc.creator}`;
+                
+                content.appendChild(text);
+                content.appendChild(creator);
+                card.appendChild(avatar);
+                card.appendChild(content);
+                
+                grid.appendChild(card);
+            });
+        }
+
         // Initialize: show about page on load
+        loadAccomplishments();
         showPage('about');
     </script>
   </body>
