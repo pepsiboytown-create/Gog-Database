@@ -15,28 +15,51 @@
             background-attachment: fixed;
             min-height: 100vh;
             color: #f1f5f9;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(99,102,241,0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(139,92,246,0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
         .header {
+            position: relative;
+            z-index: 1;
             padding: 60px 20px;
             text-align: center;
-            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.05));
-            border-bottom: 1px solid rgba(99,102,241,0.2);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(59,130,246,0.08));
+            border-bottom: 2px solid rgba(99,102,241,0.3);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
         h1 {
             font-size: 56px;
             margin: 0 0 12px;
             font-weight: 800;
-            background: linear-gradient(135deg, #818cf8, #60a5fa);
+            background: linear-gradient(135deg, #818cf8, #60a5fa, #a78bfa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: textGlow 3s ease-in-out infinite;
+        }
+        @keyframes textGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(129,140,248,0.3)); }
+            50% { filter: drop-shadow(0 0 20px rgba(129,140,248,0.6)); }
         }
         .tagline {
             margin: 0;
-            color: #94a3b8;
+            color: #cbd5e1;
             font-size: 16px;
             font-weight: 400;
+            letter-spacing: 0.5px;
         }
         .nav {
             margin-top: 20px;
@@ -44,29 +67,51 @@
             gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
+            animation: slideDown 0.6s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .nav-btn {
             background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.05));
-            border: 1px solid rgba(99,102,241,0.3);
+            border: 1.5px solid rgba(99,102,241,0.4);
             color: #818cf8;
-            padding: 10px 18px;
-            border-radius: 20px;
+            padding: 11px 20px;
+            border-radius: 24px;
             cursor: pointer;
             font-weight: 600;
             font-size: 14px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        .nav-btn:hover::before {
+            left: 100%;
         }
         .nav-btn:hover {
-            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(59,130,246,0.1));
+            background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(59,130,246,0.15));
             border-color: #818cf8;
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(99,102,241,0.2);
+            box-shadow: 0 12px 32px rgba(99,102,241,0.25);
         }
         .nav-btn:active {
             transform: translateY(0);
         }
         .container {
+            position: relative;
+            z-index: 1;
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
@@ -74,6 +119,7 @@
         h2 {
             color: #f1f5f9;
             margin-bottom: 24px;
+            margin-top: 0;
             font-size: 32px;
             font-weight: 700;
         }
@@ -92,29 +138,50 @@
         }
         .gog-item {
             background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(59,130,246,0.03));
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
-            border: 1px solid rgba(99,102,241,0.15);
-            transition: all 0.3s ease;
+            border: 1.5px solid rgba(99,102,241,0.2);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
+            position: relative;
+        }
+        .gog-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(129,140,248,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .gog-item:hover::before {
+            opacity: 1;
         }
         .gog-item:hover {
-            border-color: rgba(99,102,241,0.4);
-            transform: translateY(-6px);
-            box-shadow: 0 16px 36px rgba(99,102,241,0.15);
+            border-color: rgba(99,102,241,0.6);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 48px rgba(99,102,241,0.2);
         }
         .gog-img {
             width: 100%;
             aspect-ratio: 1/1;
             object-fit: cover;
             display: block;
+            transition: transform 0.3s ease;
+        }
+        .gog-item:hover .gog-img {
+            transform: scale(1.05);
         }
         .gog-label {
             padding: 12px;
             font-weight: 600;
             color: #818cf8;
             text-align: center;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.3);
             font-size: 13px;
             word-break: break-word;
         }
@@ -124,16 +191,22 @@
             gap: 20px;
             align-items: center;
             padding: 40px;
-            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(59,130,246,0.03));
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.05));
             border-radius: 16px;
-            border: 1px solid rgba(99,102,241,0.15);
+            border: 1.5px solid rgba(99,102,241,0.3);
+            box-shadow: 0 8px 24px rgba(99,102,241,0.1);
         }
         .random-box img {
             width: 280px;
             height: 280px;
             object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 20px 48px rgba(99,102,241,0.2);
+            border-radius: 14px;
+            box-shadow: 0 20px 48px rgba(99,102,241,0.25);
+            animation: floatIn 0.6s ease-out;
+        }
+        @keyframes floatIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
         .prose {
             line-height: 1.8;
@@ -143,7 +216,79 @@
             margin: 16px 0;
         }
         .prose li { margin: 8px 0; }
+        .muted { color: #94a3b8; }
         .hidden { display: none !important; }
+        .creator-card {
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.05));
+            padding: 24px;
+            border-radius: 16px;
+            border: 2px solid rgba(139,92,246,0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            margin: 16px 0;
+        }
+        .creator-card:hover {
+            border-color: rgba(139,92,246,0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(139,92,246,0.15);
+            background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1));
+        }
+        .creator-card h3 {
+            margin: 0 0 8px;
+            color: #c4b5fd;
+            font-size: 20px;
+        }
+        .creator-card p {
+            margin: 8px 0;
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .accomplishment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .accomplishment-card {
+            background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(59,130,246,0.02));
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(99,102,241,0.2);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+        .accomplishment-card:hover {
+            border-color: rgba(99,102,241,0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(99,102,241,0.1);
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.05));
+        }
+        .accomplishment-card::before {
+            content: "✨";
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        .accomplishment-text {
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        h2 {
+            position: relative;
+            display: inline-block;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #818cf8, #60a5fa);
+            border-radius: 2px;
+        }
         footer {
             text-align: center;
             color: #94a3b8;
@@ -181,12 +326,33 @@
         <h2>About GOGs</h2>
         <div class="prose">
           <p>GOGs are ancient cosmic beings that accidentally discovered tacos and then taught whole civilisations how to moonwalk. They've won more awards than there are stars, including the prestigious "Golden Pebble of Honor" (won 27 times). Every year a GOG climbs the highest cloud to perform the Ritual of Plenty — this is how seasons are invented.</p>
-          <p>Recent accomplishments:</p>
-          <ul>
-            <li>Built the first intergalactic pogo stick factory.</li>
-            <li>Invented vertical rain (it falls up on Tuesdays).</li>
-            <li>Hired three thousand squirrels as official taste-testers.</li>
-          </ul>
+        </div>
+        <h2 style="margin-top: 32px;">Epic Accomplishments</h2>
+        <div class="accomplishment-grid">
+          <div class="accomplishment-card"><div class="accomplishment-text">Built the first intergalactic pogo stick factory (still operational on Mars).</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Invented vertical rain (it falls up every Tuesday at precisely 3:47 PM).</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Hired three thousand squirrels as official taste-testers.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Taught dolphins to speak fluent Klingon.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Created the first cloud made entirely of cotton candy (location classified).</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Invented backwards walking as a competitive Olympic sport.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Won a staring contest with the sun (sun forfeited after 47 days).</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Successfully taught gravity to take naps on Thursdays.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Created the first restaurant that serves invisible soup (5-star reviews).</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Built a bridge from the Earth to the Moon using only string cheese.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Invented shoes that make people walk backwards through time (mostly safe).</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Taught penguins to tap dance while humming the Macarena.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Created a new color called "Blurple" that doesn't exist in normal dimensions.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Won the intergalactic karaoke championship 23 years running.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Taught clouds to make it rain upside-down pancakes (with syrup).</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Built the first sentient refrigerator with PhD in philosophy.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Created a language that only uses interpretive dance.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Convinced squirrels to unionize and demand better acorn benefits.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Invented socks that never get lost in the laundry (95% success rate).</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Taught birds to form a synchronized swimming team in the air.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Created a pizza that tastes different every time you eat it.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Built a skateboard that works on water and lava.</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Invented mirrors that show your future self (accuracy not guaranteed).</div></div>
+          <div class="accomplishment-card"><div class="accomplishment-text">Taught snakes to solve Rubik's cubes (no hands required).</div></div>
         </div>
       </section>
 
@@ -200,15 +366,29 @@
 
       <section id="creators" class="page hidden">
         <h2>GOG Creators</h2>
-        <div class="prose">
-          <p>Meet the brilliant minds behind the GOGs:</p>
-          <ol>
-            <li>Prof. Whimsy B. Snick — Head of Unreliable Inventions</li>
-            <li>Dr. Luna Marshmallow — Director of Moon Juggling</li>
-            <li>Captain Sprout — Logistics and Interplanetary Post</li>
-          </ol>
-          <p>They prefer being paid in cookie crumbs and very small hats.</p>
+        <p class="muted" style="font-style: italic; margin-bottom: 24px;">The visionaries behind the chaos, meet the brilliant minds (and one moderately-skilled hamster) responsible for GOGs:</p>
+        
+        <div class="creator-card">
+          <h3>🎨 ZigbyTT</h3>
+          <p><strong>Title:</strong> Chief Design Overlord & Dimension Architect</p>
+          <p><strong>Specialty:</strong> Creating impossibly colorful things that shouldn't exist but do</p>
+          <p><strong>Known For:</strong> Inventing the GOG aesthetic that makes people question reality. Can draw with both hands simultaneously while hopping. Never sleeps, only enters "creative hibernation."</p>
+          <p><strong>Payment Terms:</strong> Accepts payment in stickers, confetti, and existential compliments</p>
+          <p><strong>Fun Fact:</strong> Once created a color so vibrant that it required its own security clearance.</p>
         </div>
+
+        <div class="creator-card">
+          <h3>🌙 Shadowh3art</h3>
+          <p><strong>Title:</strong> Mystery Code Whisperer & Digital Sorcerer</p>
+          <p><strong>Specialty:</strong> Making the GOGs actually work despite defying laws of physics</p>
+          <p><strong>Known For:</strong> Writing code in the dark while wearing three pairs of sunglasses. Can debug with their eyes closed. Communicates primarily through cryptic emojis and memes.</p>
+          <p><strong>Payment Terms:</strong> Prefers payment in riddles, pizza, and the souls of bugs</p>
+          <p><strong>Fun Fact:</strong> Allegedly taught a computer to dream in binary.</p>
+        </div>
+
+        <p class="prose" style="margin-top: 24px; padding: 16px; background: rgba(99,102,241,0.05); border-left: 4px solid rgba(99,102,241,0.4); border-radius: 8px;">
+          <strong style="color: #818cf8;">Quote from both creators:</strong> "We have no idea how any of this works anymore. We just keep adding features and hope nobody notices." — ZigbyTT & Shadowh3art, circa Never
+        </p>
       </section>
 
       <section id="random" class="page hidden">
