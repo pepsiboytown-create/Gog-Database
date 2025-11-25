@@ -46,8 +46,19 @@ Recommended quick paths to keep uploads:
 - Deploy the Express app to Render or Railway (they accept a GitHub repo and host Node apps). Keep `UPLOAD_CODE` in environment settings on the host.
 - Use Netlify or Vercel functions as a lightweight serverless upload endpoint and connect to an object store (S3) — this requires extra config.
 
-If you'd like, I can:
+Syncing GOGs to Pages
 
-- Add a Dockerfile so you can run the server in a container and deploy it to any host that supports Docker.
-- Add instructions and a simple GH Action that deploys the `docs/` folder to the `gh-pages` branch automatically.
+If you add images to the `gogs/` folder, run the build script to sync them into `docs/`:
+
+```powershell
+npm run build-docs
+```
+
+This copies all images from `gogs/` into `docs/gogs/` and generates `docs/gogs-list.json`. Then commit and push — the Pages site will show the updated database.
+
+Deployment
+
+See `DEPLOY_TO_RENDER.md` for a quick Render deployment (fastest way to keep uploads working).
+
+See `DOCKER.md` if you want to run the server in a container and deploy it to Fly.io, AWS, or another platform.
 

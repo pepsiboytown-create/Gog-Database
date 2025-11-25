@@ -7,8 +7,28 @@ async function fetchFiles() {
   const el = document.getElementById('files');
   el.innerHTML = '<p class="muted">Loading uploads…</p>';
   if (isPages) {
-    // Show demo bundled assets when on GitHub Pages (uploads not available)
+    // Try to load a static manifest placed in docs/ so Pages can show the DB.
     el.innerHTML = '';
+    try {
+      const m = await fetch('/docs/gogs-list.json');
+      if (m.ok) {
+        const items = await m.json();
+        if (Array.isArray(items) && items.length) {
+          for (const it of items) {
+            const img = document.createElement('img');
+            img.src = it.url;
+            img.alt = it.name;
+            el.appendChild(img);
+          }
+          return;
+        }
+      }
+    } catch (err) {
+      // fallback next
+      console.warn('No docs manifest or failed to load it, falling back to bundled demo assets', err);
+    }
+
+    // Fallback demo assets (bundled)
     const demo = [
       '/docs/assets/gog1.svg',
       '/docs/assets/gog2.svg',

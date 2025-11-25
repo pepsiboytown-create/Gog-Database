@@ -15,9 +15,13 @@ app.use(cors());
 
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
+const GOGS_DIR = path.join(__dirname, 'gogs');
 
 if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+}
+if (!fs.existsSync(GOGS_DIR)) {
+  fs.mkdirSync(GOGS_DIR, { recursive: true });
 }
 
 const storage = multer.diskStorage({
@@ -36,6 +40,18 @@ const upload = multer({ storage });
 app.use(express.static(PUBLIC_DIR));
 // Serve uploaded files
 app.use('/uploads', express.static(UPLOAD_DIR));
+// Serve gogs assets (GOG database)
+app.use('/gogs', express.static(GOGS_DIR));
+
+// List files in the gogs folder for the GOG database
+app.get('/gogs-list', (req, res) => {
+  fs.readdir(GOGS_DIR, (err, files) => {
+    if (err) return res.status(500).json({ error: 'failed to list gogs' });
+    const images = files.filter(f => /\.(png|jpe?g|gif|svg|webp)$/i.test(f))
+      .map(f => ({ name: f.replace(/\.[^/.]+$/, ''), file: f, url: `/gogs/${encodeURIComponent(f)}` }));
+    res.json(images.reverse());
+  });
+});
 
 app.get('/files', (req, res) => {
   fs.readdir(UPLOAD_DIR, (err, files) => {

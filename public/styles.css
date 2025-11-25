@@ -19,6 +19,17 @@ h2{color:#eaf0ff;margin-bottom:12px}
 .gog-green{background:#10b981}
 .gallery{display:flex;flex-wrap:wrap;gap:12px}
 .gallery img{width:160px;height:160px;object-fit:cover;border-radius:8px;box-shadow:0 6px 14px rgba(2,6,23,0.5)}
+/* New GOG database grid */
+.nav{margin-top:12px;display:flex;gap:8px;justify-content:center}
+.nav button{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#eaf0ff;padding:8px 12px;border-radius:10px;cursor:pointer}
+.nav button:hover{background:rgba(255,255,255,0.02)}
+.gog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.gog-item{background:rgba(255,255,255,0.02);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;align-items:stretch}
+.gog-thumb{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.gog-label{padding:8px;font-weight:600;color:#eaf0ff;text-align:center;background:transparent}
+.random-box{display:flex;flex-direction:column;gap:12px;align-items:center}
+.random-box img{width:260px;height:260px;object-fit:cover;border-radius:12px}
+.prose p,.prose ul,.prose ol{color:#dfeeff}
 form{display:flex;flex-direction:column;gap:8px;max-width:420px}
 label{display:flex;flex-direction:column;color:var(--muted);font-size:14px}
 input[type=text],input[type=password],input[type=file]{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:#eaf0ff}
@@ -28,3 +39,5 @@ button{background:var(--accent);color:white;padding:10px 14px;border-radius:10px
 #uploadMsg{margin-top:8px;color:#bde0ff}
 
 @media (max-width:720px){.cards{flex-direction:column}.gallery img{width:120px;height:120px}}
+@media (max-width:900px){.gog-grid{grid-template-columns:repeat(3,1fr)}.random-box img{width:180px;height:180px}}
+@media (max-width:600px){.gog-grid{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:36px}}
