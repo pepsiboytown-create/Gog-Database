@@ -247,56 +247,105 @@
             font-size: 14px;
             line-height: 1.6;
         }
-        .accomplishment-grid {
+        .accomplishments-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
             margin-top: 24px;
         }
         .accomplishment-card {
-            background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(59,130,246,0.02));
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(99,102,241,0.2);
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(59,130,246,0.03));
+            padding: 20px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(99,102,241,0.2);
             backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             display: flex;
+            flex-direction: column;
             gap: 12px;
-            align-items: flex-start;
+            cursor: pointer;
+            position: relative;
+            min-height: 200px;
         }
         .accomplishment-card:hover {
             border-color: rgba(99,102,241,0.5);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(99,102,241,0.1);
-            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.05));
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(99,102,241,0.15);
+            background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(59,130,246,0.06));
+        }
+        .accomplishment-card.expanded {
+            grid-column: span 1;
         }
         .accomplishment-avatar {
-            width: 48px;
-            height: 48px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            flex-shrink: 0;
             border: 2px solid rgba(99,102,241,0.3);
+            flex-shrink: 0;
         }
         .accomplishment-content {
             flex: 1;
         }
-        .accomplishment-card::before {
-            content: "";
-            display: none;
-        }
-        .accomplishment-text {
-            color: #cbd5e1;
-            font-size: 14px;
-            line-height: 1.5;
+        .accomplishment-title {
+            color: #e0e7ff;
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.6;
             margin: 0;
+            color: #e0e7ff;
+        }
+        .accomplishment-description {
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 8px 0 0 0;
+            max-height: 100px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.4s ease;
+            opacity: 0.7;
+        }
+        .accomplishment-card.expanded .accomplishment-description {
+            max-height: 500px;
+            opacity: 1;
         }
         .accomplishment-creator {
             color: #818cf8;
             font-size: 12px;
             font-weight: 600;
-            margin-top: 4px;
+            margin-top: auto;
             font-style: italic;
+        }
+        .expand-icon {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            color: #818cf8;
+            font-size: 12px;
+            transition: transform 0.4s ease;
+        }
+        .accomplishment-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        .reroll-btn {
+            background: linear-gradient(135deg, #818cf8, #6366f1);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+        .reroll-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+        }
+        .reroll-btn:active {
+            transform: translateY(0);
         }
         h2 {
             position: relative;
@@ -351,8 +400,11 @@
           <p>GOGs are ancient cosmic beings that accidentally discovered tacos and then taught whole civilisations how to moonwalk. They've won more awards than there are stars, including the prestigious "Golden Pebble of Honor" (won 27 times). Every year a GOG climbs the highest cloud to perform the Ritual of Plenty — this is how seasons are invented.</p>
         </div>
         <h2 style="margin-top: 32px;">Epic Accomplishments</h2>
-        <div class="accomplishment-grid" id="accomplishmentGrid">
+        <div class="accomplishments-grid" id="accomplishmentGrid">
           <!-- Accomplishments will be populated by JavaScript -->
+        </div>
+        <div style="text-align: center; margin-top: 24px;">
+          <button class="reroll-btn" onclick="rerollAccomplishments()">🎲 Reroll Accomplishments</button>
         </div>
       </section>
 
@@ -604,113 +656,54 @@
 
         // Accomplishment data with GOG achievements
         const ACCOMPLISHMENTS = [
-            { text: "Built the first intergalactic pogo stick factory (still operational on Mars).", creator: "Boingo the Bouncer" },
-            { text: "Invented vertical rain (it falls up every Tuesday at precisely 3:47 PM).", creator: "Ziggy Chaos" },
-            { text: "Hired three thousand squirrels as official taste-testers.", creator: "Fuzzbrain McGiggle" },
-            { text: "Taught dolphins to speak fluent Klingon.", creator: "Professor Wobbles" },
-            { text: "Created the first cloud made entirely of cotton candy (location classified).", creator: "Sparkles the Whimsical" },
-            { text: "Invented backwards walking as a competitive Olympic sport.", creator: "Gloom Shadow" },
-            { text: "Won a staring contest with the sun (sun forfeited after 47 days).", creator: "Squinter the Determined" },
-            { text: "Successfully taught gravity to take naps on Thursdays.", creator: "Parched Pete" },
-            { text: "Created the first restaurant that serves invisible soup (5-star reviews).", creator: "Squiggles the Absurd" },
-            { text: "Built a bridge from the Earth to the Moon using only string cheese.", creator: "Basketweaver Bob" },
-            { text: "Invented shoes that make people walk backwards through time (mostly safe).", creator: "Flame Dancer" },
-            { text: "Taught penguins to tap dance while humming the Macarena.", creator: "Waddles McGee" },
-            { text: "Created a new color called 'Blurple' that doesn't exist in normal dimensions.", creator: "Fizzlebop the Peculiar" },
-            { text: "Won the intergalactic karaoke championship 23 years running.", creator: "Saxxy Thunder" },
-            { text: "Taught clouds to make it rain upside-down pancakes (with syrup).", creator: "Squishy Delight" },
-            { text: "Built the first sentient refrigerator with PhD in philosophy.", creator: "Brainy Bytes" },
-            { text: "Created a language that only uses interpretive dance.", creator: "Giggles the Expressive" },
-            { text: "Convinced squirrels to unionize and demand better acorn benefits.", creator: "Rage Nibbler" },
-            { text: "Invented socks that never get lost in the laundry (95% success rate).", creator: "Cozy Cushion" },
-            { text: "Taught birds to form a synchronized swimming team in the air.", creator: "Shimmer Wings" },
-            { text: "Created a pizza that tastes different every time you eat it.", creator: "Insta-Nom" },
-            { text: "Built a skateboard that works on water and lava.", creator: "Bones the Daring" },
-            { text: "Invented mirrors that show your future self (accuracy not guaranteed).", creator: "Orb the Mysterious" },
-            { text: "Taught snakes to solve Rubik's cubes (no hands required).", creator: "Smarty Scales" },
-            { text: "Discovered how to make music from the sound of silence.", creator: "Whisper Waves" },
-            { text: "Successfully negotiated peace between warring factions of talking toast.", creator: "General Crumble" },
-            { text: "Created a self-referential painting that stares back at you.", creator: "Art the Recursive" },
-            { text: "Taught octopi to knit sweaters using all eight arms simultaneously.", creator: "Yarn Spinner" },
-            { text: "Invented a sport where the winner is whoever loses the hardest.", creator: "Panic Pouncer" },
-            { text: "Built a library that organizes books by feelings instead of alphabetical order.", creator: "Scholar Specs" },
-            { text: "Made friends with a black hole (friendship status: complicated).", creator: "Void Voyager" },
-            { text: "Invented ice cream that tastes like nostalgia.", creator: "Melancholy Melt" },
-            { text: "Taught robots to appreciate bad dad jokes.", creator: "Jester Joule" },
-            { text: "Created the world's first upside-down mountain.", creator: "Peak Inverto" },
-            { text: "Convinced clouds to stop being so dramatic during storms.", creator: "Zen Zephyr" },
-            { text: "Designed a chair that's comfortable no matter which way you sit.", creator: "Comfy Cushbottom" },
-            { text: "Taught fish to climb trees (they're still working on it).", creator: "Aqua Ascender" },
-            { text: "Invented the world's only backwards clock that's never wrong.", creator: "Ticktock Reverso" },
-            { text: "Created a vegetable garden where everything grows in rainbows.", creator: "Rainbow Roots" },
-            { text: "Taught cats to bark hello instead of meowing.", creator: "Feline Fiddler" },
-            { text: "Built a time machine that only travels on Wednesdays.", creator: "Wednesday Walker" },
-            { text: "Invented perfume that smells like different emotions.", creator: "Scent Sage" },
-            { text: "Taught waves to hold perfectly still for exactly 7 seconds.", creator: "Tide Tamer" },
-            { text: "Created a podcast episode that plays backward and still makes sense.", creator: "Echo Enigma" },
-            { text: "Invented a door that opens into yesterday's weather.", creator: "Portal Phineas" },
-            { text: "Taught rocks to hum classical music.", creator: "Stone Symphony" },
-            { text: "Built the first casino where the house always loses intentionally.", creator: "Lucky Louie" },
-            { text: "Created a fountain that shoots up flowers instead of water.", creator: "Bloom Burst" },
-            { text: "Invented shoes that leave glowing footprints.", creator: "Radiant Rambler" },
-            { text: "Taught the moon to wink on command.", creator: "Lunar Linguist" },
-            { text: "Built a carousel where everything spins in different directions.", creator: "Dizzy Dasher" },
-            { text: "Invented a language spoken only in yodels.", creator: "Echo Yodeler" },
-            { text: "Created graffiti that changes colors based on the viewer's mood.", creator: "Mood Muralist" },
-            { text: "Taught stars to twinkle in morse code.", creator: "Cosmic Communicator" },
-            { text: "Invented a recipe for edible confetti that explodes with flavor.", creator: "Poppy Palate" },
-            { text: "Built a bridge made entirely of soap bubbles (surprisingly sturdy).", creator: "Bubble Builder" },
-            { text: "Taught shadows to dance to music without their objects moving.", creator: "Shadow Shimmy" },
-            { text: "Created a garden where flowers bloom into butterflies.", creator: "Metamorphosis May" },
-            { text: "Invented a musical instrument that plays your thoughts.", creator: "Mind Maestro" },
-            { text: "Taught rain to fall in musical patterns.", creator: "Rhythm Raindrop" },
-            { text: "Built a library with books that read themselves aloud.", creator: "Narration Ned" },
-            { text: "Created a mirror that shows you what you wanted to be.", creator: "Dream Reflector" },
-            { text: "Invented cookies that bake themselves while you sleep.", creator: "Sleep Baker" },
-            { text: "Taught trees to speak in haiku.", creator: "Poetic Pines" },
-            { text: "Built a roller coaster that goes sideways through clouds.", creator: "Gravity Defier" },
-            { text: "Created a map that shows where everything you lost ended up.", creator: "Lost Locator" },
-            { text: "Invented a typewriter that only writes in limericks.", creator: "Rhyme Rider" },
-            { text: "Taught doorways to lead to slightly different universes.", creator: "Dimensional Dan" },
-            { text: "Built a restaurant where the food orders itself.", creator: "Self-Service Sue" },
-            { text: "Created art that only appears when you're not looking directly at it.", creator: "Peripheral Pete" },
-            { text: "Invented a pillow that gives you the dreams you ordered.", creator: "Dream Dealer" },
-            { text: "Taught mailboxes to sort themselves by emotional content.", creator: "Feeling Factorizer" },
-            { text: "Built a staircase that leads to your favorite childhood memory.", creator: "Memory Mapper" },
-            { text: "Created origami that unfolds into real tiny birds.", creator: "Paper Phoenixx" },
-            { text: "Invented a compass that always points toward pizza.", creator: "Pizza Navigator" },
-            { text: "Taught clouds to arrange themselves into prophecies.", creator: "Cloud Prophet" },
-            { text: "Built a museum where every painting changes every day.", creator: "Gallery Ghost" },
-            { text: "Created a garden where plants grow upside-down from the ceiling.", creator: "Inverted Ivy" },
-            { text: "Invented breakfast cereal that stays crunchy forever.", creator: "Crunch Keeper" },
-            { text: "Taught echoes to gossip about conversations.", creator: "Echo Evangelist" },
-            { text: "Built a theater where the audience becomes the actors.", creator: "Stage Shifter" },
-            { text: "Created a painting that smells different depending on the angle you view it.", creator: "Sensory Salvador" },
-            { text: "Invented a book where each page is a different genre.", creator: "Genre Jumper" },
-            { text: "Taught wind to tell jokes while it blows.", creator: "Breeze Comedian" },
-            { text: "Built a fountain whose water flows upward then sideways.", creator: "Anti-Gravity Aqua" },
-            { text: "Created a photograph that shows what the camera was thinking.", creator: "Thoughtful Shutterbug" },
-            { text: "Invented a joke that gets funnier the more times you hear it.", creator: "Perpetual Punchline" },
-            { text: "Taught shadows their own language.", creator: "Shade Scholar" },
-            { text: "Built a desk where your pencils write the report for you.", creator: "Auto-Author Alex" },
-            { text: "Created a window that shows your favorite place instead of what's outside.", creator: "View Victor" },
-            { text: "Invented a clock that runs on good vibes alone.", creator: "Positive Precision" },
-            { text: "Taught statues to pose differently when nobody's watching.", creator: "Sneaky Sculptor" },
-            { text: "Built a door that only opens on Saturdays.", creator: "Temporal Gatekeeper" },
-            { text: "Created a recipe for water that tastes like different drinks each sip.", creator: "Liquid Linguini" },
-            { text: "Invented a blanket that adjusts temperature to your dreams.", creator: "Dream Insulator" },
-            { text: "Taught footsteps to leave behind wildflowers.", creator: "Botanical Boots" }
+            { title: "Built the first intergalactic pogo stick factory (still operational on Mars).", creator: "Boingo the Bouncer", description: "Sourced titanium springs from asteroid mines and assembled them with parts salvaged from decommissioned spacecraft. The factory operates autonomously using Martian gravity calibrations." },
+            { title: "Invented vertical rain (it falls up every Tuesday at precisely 3:47 PM).", creator: "Ziggy Chaos", description: "Reversed the polarity of atmospheric moisture using experimental gravity manipulation crystals. Set it on a timer that aligns with cosmic radiation peaks." },
+            { title: "Hired three thousand squirrels as official taste-testers.", creator: "Fuzzbrain McGiggle", description: "Recruited squirrels with their favorite acorns and taught them a complex system of tail-twitch ratings to evaluate flavors. They now have union benefits and dental coverage." },
+            { title: "Taught dolphins to speak fluent Klingon.", creator: "Professor Wobbles", description: "Used a combination of sonar-frequency manipulation and deep-learning algorithms to teach the clicks and whistles of Klingon phonetics. They refuse to speak anything else now." },
+            { title: "Created the first cloud made entirely of cotton candy (location classified).", creator: "Sparkles the Whimsical", description: "Suspended crystallized sugar molecules in a magnetic field to achieve cloud-like density. Guards it with an elite team of flavor-protecting dragonflies." },
+            { title: "Invented backwards walking as a competitive Olympic sport.", creator: "Gloom Shadow", description: "Developed training regimens that exploit peripheral vision advantages and practiced for 10,000 hours walking in reverse. Now holds 47 world records." },
+            { title: "Won a staring contest with the sun (sun forfeited after 47 days).", creator: "Squinter the Determined", description: "Used specially treated reflective eye lenses and meditative techniques to maintain unblinking eye contact. The sun literally blinked first." },
+            { title: "Successfully taught gravity to take naps on Thursdays.", creator: "Parched Pete", description: "Negotiated with the laws of physics using interpretive dance and motivational speeches. Gravity now sleeps, making Thursdays approximately 40% less heavy." },
+            { title: "Created the first restaurant that serves invisible soup (5-star reviews).", creator: "Squiggles the Absurd", description: "Mastered the art of presentation without substance using invisible ingredients and transparent bowls. Critics praise its subtle umami notes." },
+            { title: "Built a bridge from the Earth to the Moon using only string cheese.", creator: "Basketweaver Bob", description: "Developed a structural adhesive from aged gouda and wove thousands of string cheese strands into a load-bearing lattice. It holds up surprisingly well." },
+            { title: "Invented shoes that make people walk backwards through time (mostly safe).", creator: "Flame Dancer", description: "Combined temporal flux capacitors with orthopedic insoles. Side effects include occasional déjà vu and arriving places 5 minutes before leaving." },
+            { title: "Taught penguins to tap dance while humming the Macarena.", creator: "Waddles McGee", description: "Spent three years in Antarctica teaching rhythm through fish-based rewards. Annual performances have become a sought-after tourist attraction." },
+            { title: "Created a new color called 'Blurple' that doesn't exist in normal dimensions.", creator: "Fizzlebop the Peculiar", description: "Shattered a prism across dimensional boundaries and captured the resulting impossible wavelength in a special containment jar." },
+            { title: "Won the intergalactic karaoke championship 23 years running.", creator: "Saxxy Thunder", description: "Perfected a technique of throat-singing combined with harmonics that aliens across 47 star systems cannot replicate. Trophy collection fills an entire warehouse." },
+            { title: "Taught clouds to make it rain upside-down pancakes (with syrup).", creator: "Squishy Delight", description: "Convinced clouds to absorb pancake batter molecules and syrup droplets through atmospheric osmosis. Tastes like breakfast from the sky." },
+            { title: "Built the first sentient refrigerator with PhD in philosophy.", creator: "Brainy Bytes", description: "Installed advanced AI with access to all philosophical texts. It now refuses to store meat for ethical reasons and judges your food choices." },
+            { title: "Created a language that only uses interpretive dance.", creator: "Giggles the Expressive", description: "Mapped human communication onto kinetic movements. Now teaches workshops where confused students learn to discuss mathematics through interpretive ballet." },
+            { title: "Convinced squirrels to unionize and demand better acorn benefits.", creator: "Rage Nibbler", description: "Organized squirrel collective bargaining meetings with motivational rhetoric. Squirrels now have retirement plans and dental insurance." },
+            { title: "Invented socks that never get lost in the laundry (95% success rate).", creator: "Cozy Cushion", description: "Engineered socks with permanent bonding adhesive and GPS tracking. The 5% that vanish have reportedly started their own civilization." },
+            { title: "Taught birds to form a synchronized swimming team in the air.", creator: "Shimmer Wings", description: "Developed an aerial choreography system using mating call patterns. Performances include triple loop formations and dramatic 40-degree dives." },
+            { title: "Created a pizza that tastes different every time you eat it.", creator: "Insta-Nom", description: "Programmed flavor-shifting spices that change based on ambient humidity and your current mood. Never the same bite twice." },
+            { title: "Built a skateboard that works on water and lava.", creator: "Bones the Daring", description: "Created frictionless molecular surfaces using thermally adaptive polymers. Can ride from frozen tundra to volcanic plains without stopping." },
+            { title: "Invented mirrors that show your future self (accuracy not guaranteed).", creator: "Orb the Mysterious", description: "Bent light through 47 different dimensional planes simultaneously. Accuracy depends on your life choices and current karma balance." },
+            { title: "Taught snakes to solve Rubik's cubes (no hands required).", creator: "Smarty Scales", description: "Trained snakes to manipulate cubes using only body movements and applied physics. Some snakes now speedrun the challenge in 12 seconds." },
+            { title: "Discovered how to make music from the sound of silence.", creator: "Whisper Waves", description: "Recorded the absence of sound and played it backward through quantum speakers. The result is hauntingly beautiful and causes existential reflection." },
+            { title: "Successfully negotiated peace between warring factions of talking toast.", creator: "General Crumble", description: "Facilitated diplomatic talks between burnt and white bread factions. Treaty now prevents toaster conflicts and establishes cultural exchange programs." },
+            { title: "Created a self-referential painting that stares back at you.", creator: "Art the Recursive", description: "Drew a painting containing a smaller painting of the original painting observing the observer. Causes infinite loops of existential confusion." },
+            { title: "Taught octopi to knit sweaters using all eight arms simultaneously.", creator: "Yarn Spinner", description: "Developed 8-armed knitting patterns and taught them through reward-based learning. Octopi now produce intricate designs in minutes." },
+            { title: "Invented a sport where the winner is whoever loses the hardest.", creator: "Panic Pouncer", description: "Created backwards scoring system where impressive failures earn points. Tournaments feature dramatic stumbles and comedic mishaps as main events." }
         ];
 
         function getRandomAccomplishments() {
-            // Shuffle and return first 28 accomplishments
+            // Shuffle and return first 3 accomplishments
             const shuffled = [...ACCOMPLISHMENTS].sort(() => Math.random() - 0.5);
-            return shuffled.slice(0, 28);
+            return shuffled.slice(0, 3);
         }
 
         function getRandomGogImage() {
             // Return a random GOG image
             return GOGS[Math.floor(Math.random() * GOGS.length)];
+        }
+
+        function rerollAccomplishments() {
+            loadAccomplishments();
+        }
+
+        function toggleAccomplishment(cardElement) {
+            cardElement.classList.toggle('expanded');
         }
 
         function loadAccomplishments() {
@@ -725,6 +718,7 @@
                 
                 const card = document.createElement('div');
                 card.className = 'accomplishment-card';
+                card.onclick = () => toggleAccomplishment(card);
                 
                 const avatar = document.createElement('img');
                 avatar.className = 'accomplishment-avatar';
@@ -734,18 +728,28 @@
                 const content = document.createElement('div');
                 content.className = 'accomplishment-content';
                 
-                const text = document.createElement('p');
-                text.className = 'accomplishment-text';
-                text.textContent = acc.text;
+                const title = document.createElement('p');
+                title.className = 'accomplishment-title';
+                title.textContent = acc.title;
+                
+                const description = document.createElement('p');
+                description.className = 'accomplishment-description';
+                description.textContent = acc.description;
                 
                 const creator = document.createElement('div');
                 creator.className = 'accomplishment-creator';
                 creator.textContent = `— ${acc.creator}`;
                 
-                content.appendChild(text);
+                const expandIcon = document.createElement('div');
+                expandIcon.className = 'expand-icon';
+                expandIcon.textContent = '▼';
+                
+                content.appendChild(title);
+                content.appendChild(description);
                 content.appendChild(creator);
                 card.appendChild(avatar);
                 card.appendChild(content);
+                card.appendChild(expandIcon);
                 
                 grid.appendChild(card);
             });
