@@ -359,6 +359,10 @@
       <section id="db" class="page hidden">
         <h2>GOG Database</h2>
         <p class="muted">Click an image to view it full size</p>
+        <div style="margin-bottom: 20px;">
+          <input type="text" id="gogSearch" placeholder="🔍 Search GOGs by name..." style="width: 100%; max-width: 500px; padding: 10px 14px; border-radius: 8px; border: 1.5px solid rgba(99,102,241,0.4); background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(59,130,246,0.02)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px);" />
+          <div id="searchResults" style="margin-top: 8px; color: #818cf8; font-size: 13px;"></div>
+        </div>
         <div id="gogGrid" class="gog-grid">
           <p class="muted">Loading GOGs…</p>
         </div>
@@ -409,6 +413,9 @@
 
     <footer>
     <small>GOGs — just for fun</small>
+    <p style="font-size: 11px; color: #94a3b8; margin-top: 12px; line-height: 1.4;">
+      <strong style="color: #cbd5e1;">Disclaimer:</strong> All GOGs are original parody characters created for entertainment purposes. This website is a fan project and is not intended to infringe on any copyrights, trademarks, or intellectual property rights. Any resemblance to existing characters or properties is purely coincidental.
+    </p>
     </footer>
 
     <script>
@@ -530,14 +537,27 @@
             }
         }
 
-        function loadGogGrid() {
+        function loadGogGrid(searchTerm = '') {
             const grid = document.getElementById('gogGrid');
+            const searchResults = document.getElementById('searchResults');
             
-            // Clear ALL previous content (not just loading message)
+            // Clear ALL previous content
             grid.innerHTML = '';
             
+            // Filter GOGs based on search term
+            const filteredGogs = searchTerm 
+                ? GOGS.filter(gog => gog.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                : GOGS;
+            
+            // Update search results text
+            if (searchResults && searchTerm) {
+                searchResults.textContent = `Found ${filteredGogs.length} GOG${filteredGogs.length !== 1 ? 's' : ''} matching "${searchTerm}"`;
+            } else if (searchResults) {
+                searchResults.textContent = '';
+            }
+            
             // Create grid items
-            for (const gog of GOGS) {
+            for (const gog of filteredGogs) {
                 const card = document.createElement('div');
                 card.className = 'gog-item';
                 
@@ -556,6 +576,11 @@
                 card.addEventListener('click', () => window.open(gog.url, '_blank'));
                 
                 grid.appendChild(card);
+            }
+            
+            // Show message if no results
+            if (filteredGogs.length === 0 && searchTerm) {
+                grid.innerHTML = '<p class="muted" style="grid-column: 1/-1; text-align: center;">No GOGs found matching your search. Try a different term!</p>';
             }
         }
 
@@ -729,6 +754,14 @@
         // Initialize: show about page on load
         loadAccomplishments();
         showPage('about');
+        
+        // Add search functionality
+        const gogSearch = document.getElementById('gogSearch');
+        if (gogSearch) {
+            gogSearch.addEventListener('input', (e) => {
+                loadGogGrid(e.target.value);
+            });
+        }
     </script>
   </body>
 </html>
