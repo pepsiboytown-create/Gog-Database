@@ -435,10 +435,8 @@
         function loadGogGrid() {
             const grid = document.getElementById('gogGrid');
             
-            // Clear loading message
-            if (grid.innerHTML.includes('Loading GOGs')) {
-                grid.innerHTML = '';
-            }
+            // Clear ALL previous content (not just loading message)
+            grid.innerHTML = '';
             
             // Create grid items
             for (const gog of GOGS) {
