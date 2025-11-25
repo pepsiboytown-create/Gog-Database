@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GOGs — Little silly characters</title>
+    <link rel="stylesheet" href="/docs/styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <h1>GOGs</h1>
+      <p class="tag">Tiny characters. Big personalities. Do silly things.</p>
+    </header>
+
+    <main class="container">
+      <section id="characters">
+        <h2>Meet some GOGs</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="gog gog-blue">G</div>
+            <h3>Gogo</h3>
+            <p>Loves to juggle moons.</p>
+          </div>
+          <div class="card">
+            <div class="gog gog-pink">O</div>
+            <h3>Ono</h3>
+            <p>Always trips on tiny planets.</p>
+          </div>
+          <div class="card">
+            <div class="gog gog-green">G</div>
+            <h3>Gum</h3>
+            <p>Collects shiny pebbles.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery">
+        <h2>Gallery</h2>
+        <div id="files" class="gallery">
+          <p class="muted">Loading uploads…</p>
+        </div>
+      </section>
+
+      <section id="upload">
+        <h2>Upload a GOG image (protected)</h2>
+        <form id="uploadForm">
+          <label>Upload code
+            <input type="password" name="code" id="code" placeholder="enter code" required />
+          </label>
+          <label>File
+            <input type="file" name="file" id="file" accept="image/*" required />
+          </label>
+          <button type="submit">Upload</button>
+        </form>
+        <div id="uploadMsg" role="status"></div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <small>GOGs — just for fun</small>
+    </footer>
+
+    <script src="/docs/app.js"></script>
+  </body>
+</html>
