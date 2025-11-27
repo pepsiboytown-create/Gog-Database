@@ -200,9 +200,11 @@
             box-shadow: 0 8px 24px rgba(99,102,241,0.1);
         }
         .random-box img {
-            width: 280px;
-            height: 280px;
-            object-fit: cover;
+            max-width: 90%;
+            max-height: 70vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
             border-radius: 14px;
             box-shadow: 0 20px 48px rgba(99,102,241,0.25);
             animation: floatIn 0.6s ease-out;
@@ -429,10 +431,10 @@
         <p class="tagline">Tiny characters. Big personalities. Do silly things.</p>
         <p id="gogCounter" style="color: #818cf8; font-size: 14px; margin: 8px 0 0 0; font-weight: 500;">Total GOGs: 0</p>
         <div class="nav">
-            <button class="nav-btn" onclick="showPage('about')">About GOGs</button>
-            <button class="nav-btn" onclick="showPage('db')">GOG Database</button>
-            <button class="nav-btn" onclick="showPage('creators')">GOG Creators</button>
-            <button class="nav-btn" onclick="showPage('random')">Random GOG</button>
+            <button class="nav-btn" onclick="showPage('about'); playSound('button.mp3')">About GOGs</button>
+            <button class="nav-btn" onclick="showPage('db'); playSound('button.mp3')">GOG Database</button>
+            <button class="nav-btn" onclick="showPage('creators'); playSound('button.mp3')">GOG Creators</button>
+            <button class="nav-btn" onclick="showPage('random'); playSound('button.mp3'); loadRandomGog()">Random GOG</button>
         </div>
     </div>
 
@@ -447,7 +449,7 @@
           <!-- Accomplishments will be populated by JavaScript -->
         </div>
         <div style="text-align: center; margin-top: 24px;">
-          <button class="reroll-btn" onclick="rerollAccomplishments()">🎲 Reroll Accomplishments</button>
+            <button class="reroll-btn" onclick="rerollAccomplishments(); playSound('reroll.mp3')">🎲 Reroll Accomplishments</button>
         </div>
       </section>
 
@@ -514,6 +516,9 @@
         <div id="randomBox" class="random-box">
           <p class="muted">Finding a random GOG…</p>
         </div>
+        <div style="text-align: center; margin-top: 24px;">
+          <button class="reroll-btn" onclick="loadRandomGog(); playSound('reroll.mp3')">🎲 Another Random GOG</button>
+        </div>
       </section>
     </main>
 
@@ -530,6 +535,17 @@
     </footer>
 
     <script>
+        // Sound playing function
+        function playSound(filename) {
+            try {
+                const audio = new Audio(`./sounds/${filename}`);
+                audio.volume = 0.5;
+                audio.play().catch(err => console.log('Sound not available yet:', err));
+            } catch (err) {
+                console.log('Audio playback not available:', err);
+            }
+        }
+        
         // Hardcoded GOG data with relative paths - now with ALL REAL GOGs!
         const GOGS = [
             { name: "ace the gog", url: "./gogs/ace the gog.png" },
@@ -797,7 +813,10 @@
                 
                 const card = document.createElement('div');
                 card.className = 'accomplishment-card';
-                card.onclick = () => toggleAccomplishment(card);
+                card.onclick = () => {
+                    toggleAccomplishment(card);
+                    playSound('epicsnd.mp3');
+                };
                 
                 const avatar = document.createElement('img');
                 avatar.className = 'accomplishment-avatar';
