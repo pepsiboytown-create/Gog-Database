@@ -400,6 +400,29 @@
                 opacity: 0;
             }
         }
+        @keyframes rainbowTrail {
+            0% {
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            }
+            16% {
+                box-shadow: 0 0 20px rgba(255, 127, 0, 0.8);
+            }
+            33% {
+                box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            }
+            66% {
+                box-shadow: 0 0 20px rgba(0, 0, 255, 0.8);
+            }
+            83% {
+                box-shadow: 0 0 20px rgba(75, 0, 130, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(148, 0, 211, 0.8);
+            }
+        }
         #walkingGog {
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
             cursor: pointer;
@@ -590,7 +613,7 @@
         function playSound(filename) {
             try {
                 const audio = new Audio(`./sounds/${filename}`);
-                audio.volume = 0.5;
+                audio.volume = 0.10;
                 audio.play().catch(err => console.log('Sound not available yet:', err));
             } catch (err) {
                 console.log('Audio playback not available:', err);
@@ -957,10 +980,12 @@
                     background-position: center;
                     z-index: 999;
                     pointer-events: none;
+                    border-radius: 50%;
+                    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.6));
                 `;
                 
-                // Add floating animation
-                floatingGog.style.animation = 'floatAway 2s ease-in forwards';
+                // Add floating animation with rainbow trail
+                floatingGog.style.animation = 'floatAway 2s ease-in forwards, rainbowTrail 2s linear forwards';
                 document.body.appendChild(floatingGog);
                 
                 // Remove after animation completes
@@ -985,7 +1010,7 @@
         
         // Set initial muted state
         bgMusic.muted = true;
-        bgMusic.volume = 0.5;
+        bgMusic.volume = 0.1;
         bgMusicControl.classList.add('muted');
         bgMusicControl.textContent = '🔇';
         
