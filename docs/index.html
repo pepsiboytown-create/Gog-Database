@@ -376,6 +376,18 @@
             padding: 40px 20px;
             border-top: 1px solid rgba(99,102,241,0.1);
         }
+        #sortFilter {
+            transition: all 0.3s ease;
+        }
+        #sortFilter:hover {
+            border-color: rgba(99,102,241,0.6);
+            background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(59,130,246,0.06)) !important;
+            box-shadow: 0 4px 12px rgba(99,102,241,0.15);
+        }
+        #sortFilter option {
+            background: #0a0e27;
+            color: #f1f5f9;
+        }
         @media (max-width: 900px) {
             .gog-grid { grid-template-columns: repeat(3, 1fr); }
             .random-box img { width: 220px; height: 220px; }
@@ -394,6 +406,7 @@
     <div class="header">
         <h1>GOGs</h1>
         <p class="tagline">Tiny characters. Big personalities. Do silly things.</p>
+        <p id="gogCounter" style="color: #818cf8; font-size: 14px; margin: 8px 0 0 0; font-weight: 500;">Total GOGs: 0</p>
         <div class="nav">
             <button class="nav-btn" onclick="showPage('about')">About GOGs</button>
             <button class="nav-btn" onclick="showPage('db')">GOG Database</button>
@@ -424,6 +437,15 @@
           <input type="text" id="gogSearch" placeholder="🔍 Search GOGs by name..." style="width: 100%; max-width: 500px; padding: 10px 14px; border-radius: 8px; border: 1.5px solid rgba(99,102,241,0.4); background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(59,130,246,0.02)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px);" />
           <div id="searchResults" style="margin-top: 8px; color: #818cf8; font-size: 13px;"></div>
         </div>
+        <div style="margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+          <select id="sortFilter" style="padding: 10px 14px; border-radius: 8px; border: 1.5px solid rgba(99,102,241,0.4); background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(59,130,246,0.02)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px); cursor: pointer;">
+            <option value="none">Sort by...</option>
+            <option value="name-asc">Name (A-Z)</option>
+            <option value="name-desc">Name (Z-A)</option>
+            <option value="date-asc">Date Added (Oldest)</option>
+            <option value="date-desc">Date Added (Newest)</option>
+          </select>
+        </div>
         <div id="gogGrid" class="gog-grid">
           <p class="muted">Loading GOGs…</p>
         </div>
@@ -440,6 +462,7 @@
           <p><strong>Known For:</strong> Coming up with the most chaotic and hilarious GOG concepts. Sketches first drafts and wild proto-designs. Never afraid to push creative boundaries.</p>
           <p><strong>Payment Terms:</strong> Accepts payment in stickers, confetti, and creative compliments</p>
           <p><strong>Fun Fact:</strong> Once drew a GOG so weird that even Shadowh3art had to ask for clarification.</p>
+          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none; transition: color 0.3s;">Instagram</a></p>
         </div>
 
         <div class="creator-card">
@@ -449,6 +472,7 @@
           <p><strong>Known For:</strong> Taking ZigbyTT's wild sketches and turning them into gorgeous polished GOGs. Has impeccable taste and pixel-perfect precision. Makes everything look effortlessly cool.</p>
           <p><strong>Payment Terms:</strong> Prefers payment in clean aesthetics, smooth animations, and compliments about their art</p>
           <p><strong>Fun Fact:</strong> Can polish a GOG so well that it makes people question why they didn't think of it first.</p>
+          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none; transition: color 0.3s;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none; transition: color 0.3s;">Carrd</a></p>
         </div>
         <div class="creator-card">
             <h3>🔥 Marble Helios</h3>
@@ -605,7 +629,7 @@
             }
         }
 
-        function loadGogGrid(searchTerm = '') {
+        function loadGogGrid(searchTerm = '', sortType = 'none') {
             const grid = document.getElementById('gogGrid');
             const searchResults = document.getElementById('searchResults');
             
@@ -613,9 +637,22 @@
             grid.innerHTML = '';
             
             // Filter GOGs based on search term
-            const filteredGogs = searchTerm 
+            let filteredGogs = searchTerm 
                 ? GOGS.filter(gog => gog.name.toLowerCase().includes(searchTerm.toLowerCase()))
-                : GOGS;
+                : [...GOGS];
+            
+            // Apply sorting
+            if (sortType === 'name-asc') {
+                filteredGogs.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortType === 'name-desc') {
+                filteredGogs.sort((a, b) => b.name.localeCompare(a.name));
+            } else if (sortType === 'date-asc') {
+                // Earlier in array = added first
+                filteredGogs.sort((a, b) => GOGS.indexOf(a) - GOGS.indexOf(b));
+            } else if (sortType === 'date-desc') {
+                // Later in array = added more recently
+                filteredGogs.sort((a, b) => GOGS.indexOf(b) - GOGS.indexOf(a));
+            }
             
             // Update search results text
             if (searchResults && searchTerm) {
@@ -773,13 +810,32 @@
 
         // Initialize: show about page on load
         loadAccomplishments();
+        
+        // Update GOG counter
+        document.getElementById('gogCounter').textContent = `Total GOGs: ${GOGS.length}`;
+        
+        // Load initial GOG grid
+        loadGogGrid();
+        
         showPage('about');
         
         // Add search functionality
         const gogSearch = document.getElementById('gogSearch');
         if (gogSearch) {
             gogSearch.addEventListener('input', (e) => {
-                loadGogGrid(e.target.value);
+                const sortFilter = document.getElementById('sortFilter');
+                const sortType = sortFilter ? sortFilter.value : 'none';
+                loadGogGrid(e.target.value, sortType);
+            });
+        }
+        
+        // Add sort filter functionality
+        const sortFilter = document.getElementById('sortFilter');
+        if (sortFilter) {
+            sortFilter.addEventListener('change', (e) => {
+                const gogSearch = document.getElementById('gogSearch');
+                const searchTerm = gogSearch ? gogSearch.value : '';
+                loadGogGrid(searchTerm, e.target.value);
             });
         }
     </script>
