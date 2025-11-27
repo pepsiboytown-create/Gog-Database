@@ -453,7 +453,7 @@
     </style>
 </head>
 <body>
-    <audio id="bgMusic" loop preload="auto" muted>
+    <audio id="bgMusic" loop preload="auto">
         <source src="./sounds/kcloudbg.mp3" type="audio/mpeg">
     </audio>
     
@@ -981,55 +981,32 @@
         // Background music control
         const bgMusic = document.getElementById('bgMusic');
         const bgMusicControl = document.getElementById('bgMusicControl');
-        let isMuted = false;
-        let musicStarted = false;
+        let isMuted = true; // Start muted
         
-        // Function to start playing music
-        function startMusic() {
-            if (!musicStarted) {
-                bgMusic.muted = false;
-                bgMusic.volume = 0.5;
-                bgMusic.play().catch(err => {
-                    console.log('Could not play music:', err);
-                });
-                musicStarted = true;
-            }
-        }
-        
-        // Try to start music on page load
-        setTimeout(() => {
-            startMusic();
-        }, 500);
-        
-        // Also start music on first user interaction (click, keydown, etc)
-        document.addEventListener('click', startMusic, { once: true });
-        document.addEventListener('keydown', startMusic, { once: true });
-        document.addEventListener('touchstart', startMusic, { once: true });
+        // Set initial muted state
+        bgMusic.muted = true;
+        bgMusic.volume = 0.5;
+        bgMusicControl.classList.add('muted');
+        bgMusicControl.textContent = '🔇';
         
         // Mute/unmute on button click
         bgMusicControl.addEventListener('click', (e) => {
             e.stopPropagation();
-            
-            // Ensure music has started
-            if (!musicStarted) {
-                startMusic();
-            }
-            
             isMuted = !isMuted;
             
             if (isMuted) {
-                bgMusic.volume = 0;
+                bgMusic.muted = true;
                 bgMusicControl.classList.add('muted');
                 bgMusicControl.textContent = '🔇';
             } else {
-                bgMusic.volume = 0.5;
+                bgMusic.muted = false;
+                bgMusic.play().catch(err => {
+                    console.log('Could not play music:', err);
+                });
                 bgMusicControl.classList.remove('muted');
                 bgMusicControl.textContent = '🎵';
             }
         });
-        
-        // Initialize volume to 50%
-        bgMusic.volume = 0.5;
     </script>
   </body>
 </html>
