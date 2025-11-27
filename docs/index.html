@@ -14,7 +14,7 @@
         body {
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #16213e 100%);
+            background: linear-gradient(135deg, #2a2d34 0%, #1f2a35 50%, #243341 100%);
             background-attachment: fixed;
             min-height: 100vh;
             color: #f1f5f9;
@@ -28,8 +28,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(99,102,241,0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(139,92,246,0.05) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 50%, rgba(0,157,220,0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(103,97,168,0.05) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -38,8 +38,8 @@
             z-index: 1;
             padding: 60px 20px;
             text-align: center;
-            background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(59,130,246,0.08));
-            border-bottom: 2px solid rgba(99,102,241,0.3);
+            background: linear-gradient(135deg, rgba(0,157,220,0.12), rgba(242,100,48,0.08));
+            border-bottom: 2px solid rgba(0,157,220,0.3);
             backdrop-filter: blur(15px);
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
@@ -47,15 +47,15 @@
             font-size: 56px;
             margin: 0 0 12px;
             font-weight: 800;
-            background: linear-gradient(135deg, #818cf8, #60a5fa, #a78bfa);
+            background: linear-gradient(135deg, #009ddc, #f26430, #6761a8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: textGlow 3s ease-in-out infinite;
         }
         @keyframes textGlow {
-            0%, 100% { filter: drop-shadow(0 0 10px rgba(129,140,248,0.3)); }
-            50% { filter: drop-shadow(0 0 20px rgba(129,140,248,0.6)); }
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(0,157,220,0.3)); }
+            50% { filter: drop-shadow(0 0 20px rgba(0,157,220,0.6)); }
         }
         .tagline {
             margin: 0;
@@ -77,9 +77,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .nav-btn {
-            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.05));
-            border: 1.5px solid rgba(99,102,241,0.4);
-            color: #818cf8;
+            background: linear-gradient(135deg, rgba(0,157,220,0.1), rgba(242,100,48,0.05));
+            border: 1.5px solid rgba(0,157,220,0.4);
+            color: #009ddc;
             padding: 11px 20px;
             border-radius: 24px;
             cursor: pointer;
@@ -104,10 +104,10 @@
             left: 100%;
         }
         .nav-btn:hover {
-            background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(59,130,246,0.15));
-            border-color: #818cf8;
+            background: linear-gradient(135deg, rgba(0,157,220,0.25), rgba(0,155,114,0.15));
+            border-color: #009ddc;
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(99,102,241,0.25);
+            box-shadow: 0 12px 32px rgba(0,157,220,0.25);
         }
         .nav-btn:active {
             transform: translateY(0);
@@ -140,10 +140,10 @@
             margin-top: 20px;
         }
         .gog-item {
-            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(59,130,246,0.03));
+            background: linear-gradient(135deg, rgba(0,157,220,0.08), rgba(0,155,114,0.03));
             border-radius: 14px;
             overflow: hidden;
-            border: 1.5px solid rgba(99,102,241,0.2);
+            border: 1.5px solid rgba(0,157,220,0.2);
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
             position: relative;
@@ -165,9 +165,9 @@
             opacity: 1;
         }
         .gog-item:hover {
-            border-color: rgba(99,102,241,0.6);
+            border-color: rgba(0,157,220,0.6);
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 48px rgba(99,102,241,0.2);
+            box-shadow: 0 20px 48px rgba(0,157,220,0.2);
         }
         .gog-img {
             width: 100%;
@@ -182,7 +182,7 @@
         .gog-label {
             padding: 12px;
             font-weight: 600;
-            color: #818cf8;
+            color: #009ddc;
             text-align: center;
             background: rgba(0,0,0,0.3);
             font-size: 13px;
@@ -194,19 +194,19 @@
             gap: 20px;
             align-items: center;
             padding: 40px;
-            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.05));
+            background: linear-gradient(135deg, rgba(0,157,220,0.1), rgba(103,97,168,0.05));
             border-radius: 16px;
-            border: 1.5px solid rgba(99,102,241,0.3);
-            box-shadow: 0 8px 24px rgba(99,102,241,0.1);
+            border: 1.5px solid rgba(0,157,220,0.3);
+            box-shadow: 0 8px 24px rgba(0,157,220,0.1);
         }
         .random-box img {
             max-width: 90%;
-            max-height: 70vh;
+            max-height: 50vh;
             width: auto;
             height: auto;
             object-fit: contain;
             border-radius: 14px;
-            box-shadow: 0 20px 48px rgba(99,102,241,0.25);
+            box-shadow: 0 20px 48px rgba(0,157,220,0.25);
             animation: floatIn 0.6s ease-out;
         }
         @keyframes floatIn {
@@ -224,23 +224,23 @@
         .muted { color: #94a3b8; }
         .hidden { display: none !important; }
         .creator-card {
-            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.05));
+            background: linear-gradient(135deg, rgba(0,157,220,0.1), rgba(103,97,168,0.05));
             padding: 24px;
             border-radius: 16px;
-            border: 2px solid rgba(139,92,246,0.3);
+            border: 2px solid rgba(103,97,168,0.3);
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             margin: 16px 0;
         }
         .creator-card:hover {
-            border-color: rgba(139,92,246,0.6);
+            border-color: rgba(103,97,168,0.6);
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(139,92,246,0.15);
-            background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1));
+            box-shadow: 0 12px 32px rgba(103,97,168,0.15);
+            background: linear-gradient(135deg, rgba(0,157,220,0.15), rgba(103,97,168,0.1));
         }
         .creator-card h3 {
             margin: 0 0 8px;
-            color: #c4b5fd;
+            color: #009ddc;
             font-size: 20px;
         }
         .creator-card p {
@@ -256,10 +256,10 @@
             margin-top: 24px;
         }
         .accomplishment-card {
-            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(59,130,246,0.03));
+            background: linear-gradient(135deg, rgba(0,157,220,0.08), rgba(242,100,48,0.03));
             padding: 20px;
             border-radius: 14px;
-            border: 1.5px solid rgba(99,102,241,0.2);
+            border: 1.5px solid rgba(0,157,220,0.2);
             backdrop-filter: blur(8px);
             transition: all 0.4s ease;
             display: flex;
@@ -270,10 +270,10 @@
             min-height: 200px;
         }
         .accomplishment-card:hover {
-            border-color: rgba(99,102,241,0.5);
+            border-color: rgba(0,157,220,0.5);
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(99,102,241,0.15);
-            background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(59,130,246,0.06));
+            box-shadow: 0 12px 32px rgba(0,157,220,0.15);
+            background: linear-gradient(135deg, rgba(0,157,220,0.12), rgba(242,100,48,0.06));
         }
         .accomplishment-card.expanded {
             grid-column: span 1;
@@ -283,7 +283,7 @@
             height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(99,102,241,0.3);
+            border: 2px solid rgba(0,157,220,0.3);
             flex-shrink: 0;
         }
         .accomplishment-content {
@@ -295,7 +295,7 @@
             font-weight: 600;
             line-height: 1.6;
             margin: 0;
-            color: #e0e7ff;
+            color: #f1f5f9;
         }
         .accomplishment-description {
             color: #cbd5e1;
@@ -313,7 +313,7 @@
             margin: 12px 0 0 0;
         }
         .accomplishment-creator {
-            color: #818cf8;
+            color: #009ddc;
             font-size: 12px;
             font-weight: 600;
             margin-top: auto;
@@ -331,7 +331,7 @@
             position: absolute;
             top: 16px;
             right: 16px;
-            color: #818cf8;
+            color: #009ddc;
             font-size: 12px;
             transition: transform 0.4s ease;
         }
@@ -339,7 +339,7 @@
             transform: rotate(180deg);
         }
         .reroll-btn {
-            background: linear-gradient(135deg, #818cf8, #6366f1);
+            background: linear-gradient(135deg, #009ddc, #009b72);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -348,12 +348,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(0,157,220, 0.3);
         }
         .reroll-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            box-shadow: 0 6px 20px rgba(0,157,220, 0.5);
+            background: linear-gradient(135deg, #00b8f0, #009b72);
         }
         .reroll-btn:active {
             transform: translateY(0);
@@ -369,25 +369,25 @@
             left: 0;
             width: 60px;
             height: 3px;
-            background: linear-gradient(90deg, #818cf8, #60a5fa);
+            background: linear-gradient(90deg, #009ddc, #f26430);
             border-radius: 2px;
         }
         footer {
             text-align: center;
             color: #94a3b8;
             padding: 40px 20px;
-            border-top: 1px solid rgba(99,102,241,0.1);
+            border-top: 1px solid rgba(0,157,220,0.1);
         }
         #sortFilter {
             transition: all 0.3s ease;
         }
         #sortFilter:hover {
-            border-color: rgba(99,102,241,0.6);
-            background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(59,130,246,0.06)) !important;
-            box-shadow: 0 4px 12px rgba(99,102,241,0.15);
+            border-color: rgba(0,157,220,0.6);
+            background: linear-gradient(135deg, rgba(0,157,220,0.12), rgba(242,100,48,0.06)) !important;
+            box-shadow: 0 4px 12px rgba(0,157,220,0.15);
         }
         #sortFilter option {
-            background: #0a0e27;
+            background: #2a2d34;
             color: #f1f5f9;
         }
         @keyframes floatAway {
@@ -405,7 +405,7 @@
             cursor: pointer;
         }
         #walkingGog:hover {
-            filter: drop-shadow(0 6px 12px rgba(99,102,241,0.4));
+            filter: drop-shadow(0 6px 12px rgba(0,157,220,0.4));
             transform: scale(1.05);
         }
         #walkingGog.floating {
@@ -429,7 +429,7 @@
     <div class="header">
         <h1>GOGs</h1>
         <p class="tagline">Tiny characters. Big personalities. Do silly things.</p>
-        <p id="gogCounter" style="color: #818cf8; font-size: 14px; margin: 8px 0 0 0; font-weight: 500;">Total GOGs: 0</p>
+        <p id="gogCounter" style="color: #009ddc; font-size: 14px; margin: 8px 0 0 0; font-weight: 500;">Total GOGs: 0</p>
         <div class="nav">
             <button class="nav-btn" onclick="showPage('about'); playSound('button.mp3')">About GOGs</button>
             <button class="nav-btn" onclick="showPage('db'); playSound('button.mp3')">GOG Database</button>
@@ -445,18 +445,18 @@
           <p>GOGs are ancient cosmic beings that accidentally discovered tacos and then taught whole civilisations how to moonwalk. They've won more awards than there are stars, including the prestigious "Golden Pebble of Honor" (won 27 times). Every year a GOG climbs the highest cloud to perform the Ritual of Plenty — this is how seasons are invented.</p>
         </div>
         
-        <div style="margin-top: 32px; padding: 24px; background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.05)); border-radius: 16px; border: 1.5px solid rgba(99,102,241,0.3);">
-          <h3 style="margin-top: 0; color: #818cf8;">Created By</h3>
+        <div style="margin-top: 32px; padding: 24px; background: linear-gradient(135deg, rgba(0,157,220,0.08), rgba(103,97,168,0.05)); border-radius: 16px; border: 1.5px solid rgba(0,157,220,0.3);">
+          <h3 style="margin-top: 0; color: #009ddc;">Created By</h3>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
             <div>
-              <h4 style="color: #e0e7ff; margin-bottom: 8px;">🎨 ZIGBYTT</h4>
+              <h4 style="color: #f1f5f9; margin-bottom: 8px;">🎨 ZIGBYTT</h4>
               <p style="margin: 0; color: #cbd5e1; font-size: 14px;">The Inventor of GOGs • Draws rough sketches and wild concepts that start every creation</p>
-              <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none;">Instagram</a></p>
+              <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Instagram</a></p>
             </div>
             <div>
-              <h4 style="color: #e0e7ff; margin-bottom: 8px;">🌙 SHADOWH3ART</h4>
+              <h4 style="color: #f1f5f9; margin-bottom: 8px;">🌙 SHADOWH3ART</h4>
               <p style="margin: 0; color: #cbd5e1; font-size: 14px;">The Finisher • Makes everything clean, polished, and absolutely gorgeous</p>
-              <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none;">Carrd</a></p>
+              <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Carrd</a></p>
             </div>
           </div>
         </div>
@@ -473,11 +473,11 @@
         <h2>GOG Database</h2>
         <p class="muted">Click an image to view it full size</p>
         <div style="margin-bottom: 20px;">
-          <input type="text" id="gogSearch" placeholder="🔍 Search GOGs by name..." style="width: 100%; max-width: 500px; padding: 10px 14px; border-radius: 8px; border: 1.5px solid rgba(99,102,241,0.4); background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(59,130,246,0.02)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px);" />
-          <div id="searchResults" style="margin-top: 8px; color: #818cf8; font-size: 13px;"></div>
+          <input type="text" id="gogSearch" placeholder="🔍 Search GOGs by name..." style="width: 100%; max-width: 500px; padding: 10px 14px; border-radius: 8px; border: 1.5px solid rgba(0,157,220,0.4); background: linear-gradient(135deg, rgba(0,157,220,0.06), rgba(0,155,114,0.02)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px);" />
+          <div id="searchResults" style="margin-top: 8px; color: #009ddc; font-size: 13px;"></div>
         </div>
         <div style="margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
-          <select id="sortFilter" style="padding: 10px 14px; border-radius: 8px; border: 1.5px solid rgba(99,102,241,0.4); background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(59,130,246,0.02)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px); cursor: pointer;">
+          <select id="sortFilter" style="padding: 10px 14px; border-radius: 8px; border: 1.5px solid rgba(0,157,220,0.4); background: linear-gradient(135deg, rgba(0,157,220,0.06), rgba(0,155,114,0.02)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px); cursor: pointer;">
             <option value="none">Sort by...</option>
             <option value="name-asc">Name (A-Z)</option>
             <option value="name-desc">Name (Z-A)</option>
@@ -501,7 +501,7 @@
           <p><strong>Known For:</strong> Coming up with the most chaotic and hilarious GOG concepts. Sketches first drafts and wild proto-designs. Never afraid to push creative boundaries.</p>
           <p><strong>Payment Terms:</strong> Accepts payment in stickers, confetti, and creative compliments</p>
           <p><strong>Fun Fact:</strong> Once drew a GOG so weird that even Shadowh3art had to ask for clarification.</p>
-          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none; transition: color 0.3s;">Instagram</a></p>
+          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Instagram</a></p>
         </div>
 
         <div class="creator-card">
@@ -511,7 +511,7 @@
           <p><strong>Known For:</strong> Taking ZigbyTT's wild sketches and turning them into gorgeous polished GOGs. Has impeccable taste and pixel-perfect precision. Makes everything look effortlessly cool.</p>
           <p><strong>Payment Terms:</strong> Prefers payment in clean aesthetics, smooth animations, and compliments about their art</p>
           <p><strong>Fun Fact:</strong> Can polish a GOG so well that it makes people question why they didn't think of it first.</p>
-          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none; transition: color 0.3s;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none; transition: color 0.3s;">Carrd</a></p>
+          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Carrd</a></p>
         </div>
         <div class="creator-card">
             <h3>🔥 Marble Helios</h3>
@@ -522,8 +522,8 @@
             <p><strong>Fun Fact:</strong> Can spot a GOG from miles away and instantly devise a plan to make its life miserable.</p>
         </div>
 
-        <p class="prose" style="margin-top: 24px; padding: 16px; background: rgba(99,102,241,0.05); border-left: 4px solid rgba(99,102,241,0.4); border-radius: 8px;">
-          <strong style="color: #818cf8;">Quote from both creators:</strong> "We have no idea how any of this works anymore. We just keep adding features and hope nobody notices." — ZigbyTT & Shadowh3art, circa Never
+        <p class="prose" style="margin-top: 24px; padding: 16px; background: rgba(0,157,220,0.05); border-left: 4px solid rgba(0,157,220,0.4); border-radius: 8px;">
+          <strong style="color: #009ddc;">Quote from both creators:</strong> "We have no idea how any of this works anymore. We just keep adding features and hope nobody notices." — ZigbyTT & Shadowh3art, circa Never
         </p>
       </section>
 
