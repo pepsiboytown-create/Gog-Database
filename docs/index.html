@@ -423,9 +423,91 @@
             .nav { gap: 6px; }
             .nav-btn { padding: 8px 14px; font-size: 13px; }
         }
+        #bgMusicControl {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, rgba(0,157,220,0.2), rgba(103,97,168,0.2));
+            border: 2px solid rgba(0,157,220,0.4);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+        #bgMusicControl:hover {
+            background: linear-gradient(135deg, rgba(0,157,220,0.4), rgba(103,97,168,0.3));
+            border-color: rgba(0,157,220,0.8);
+            box-shadow: 0 8px 24px rgba(0,157,220,0.3);
+        }
+        #bgMusicControl.muted {
+            opacity: 0.5;
+        }
+        #volumeSlider {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            width: 0;
+            height: 40px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        #bgMusicControl:hover #volumeSlider {
+            width: 120px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #volumeSlider {
+            accent-color: #009ddc;
+        }
+        #volumeSlider::-webkit-slider-thumb {
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #009ddc;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,157,220,0.4);
+        }
+        #volumeSlider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #009ddc;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,157,220,0.4);
+        }
+        #volumeSlider::-webkit-slider-runnable-track {
+            background: rgba(0,157,220,0.3);
+            height: 4px;
+            border-radius: 2px;
+        }
+        #volumeSlider::-moz-range-track {
+            background: transparent;
+            border: none;
+        }
     </style>
 </head>
 <body>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="./sounds/kcloudbg.mp3" type="audio/mpeg">
+    </audio>
+    
+    <button id="bgMusicControl" title="Click to mute/unmute, hover to adjust volume">
+        🎵
+        <input type="range" id="volumeSlider" min="0" max="100" value="50" />
+    </button>
+
     <div class="header">
         <h1>GOGs</h1>
         <p class="tagline">Tiny characters. Big personalities. Do silly things.</p>
@@ -942,6 +1024,49 @@
                 }, 2000);
             });
         }
+        
+        // Background music control
+        const bgMusic = document.getElementById('bgMusic');
+        const bgMusicControl = document.getElementById('bgMusicControl');
+        const volumeSlider = document.getElementById('volumeSlider');
+        let isMuted = false;
+        
+        // Start playing music on page load with slight delay to ensure autoplay can work
+        setTimeout(() => {
+            bgMusic.play().catch(() => {
+                // Autoplay failed, will require user interaction
+                console.log('Autoplay prevented by browser policy');
+            });
+        }, 500);
+        
+        // Update volume from slider
+        volumeSlider.addEventListener('input', (e) => {
+            bgMusic.volume = e.target.value / 100;
+            if (isMuted) {
+                isMuted = false;
+                bgMusicControl.classList.remove('muted');
+                bgMusicControl.textContent = '🎵';
+            }
+        });
+        
+        // Mute/unmute on button click
+        bgMusicControl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isMuted = !isMuted;
+            
+            if (isMuted) {
+                bgMusic.volume = 0;
+                bgMusicControl.classList.add('muted');
+                bgMusicControl.textContent = '🔇';
+            } else {
+                bgMusic.volume = volumeSlider.value / 100;
+                bgMusicControl.classList.remove('muted');
+                bgMusicControl.textContent = '🎵';
+            }
+        });
+        
+        // Initialize volume to slider value
+        bgMusic.volume = volumeSlider.value / 100;
     </script>
   </body>
 </html>
