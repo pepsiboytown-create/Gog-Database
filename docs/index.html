@@ -453,7 +453,7 @@
     </style>
 </head>
 <body>
-    <audio id="bgMusic" loop preload="auto">
+    <audio id="bgMusic" loop preload="auto" muted>
         <source src="./sounds/kcloudbg.mp3" type="audio/mpeg">
     </audio>
     
@@ -982,18 +982,39 @@
         const bgMusic = document.getElementById('bgMusic');
         const bgMusicControl = document.getElementById('bgMusicControl');
         let isMuted = false;
+        let musicStarted = false;
         
-        // Start playing music on page load with slight delay to ensure autoplay can work
+        // Function to start playing music
+        function startMusic() {
+            if (!musicStarted) {
+                bgMusic.muted = false;
+                bgMusic.volume = 0.5;
+                bgMusic.play().catch(err => {
+                    console.log('Could not play music:', err);
+                });
+                musicStarted = true;
+            }
+        }
+        
+        // Try to start music on page load
         setTimeout(() => {
-            bgMusic.play().catch(() => {
-                // Autoplay failed, will require user interaction
-                console.log('Autoplay prevented by browser policy');
-            });
+            startMusic();
         }, 500);
+        
+        // Also start music on first user interaction (click, keydown, etc)
+        document.addEventListener('click', startMusic, { once: true });
+        document.addEventListener('keydown', startMusic, { once: true });
+        document.addEventListener('touchstart', startMusic, { once: true });
         
         // Mute/unmute on button click
         bgMusicControl.addEventListener('click', (e) => {
             e.stopPropagation();
+            
+            // Ensure music has started
+            if (!musicStarted) {
+                startMusic();
+            }
+            
             isMuted = !isMuted;
             
             if (isMuted) {
