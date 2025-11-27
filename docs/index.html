@@ -444,12 +444,28 @@
         <div class="prose">
           <p>GOGs are ancient cosmic beings that accidentally discovered tacos and then taught whole civilisations how to moonwalk. They've won more awards than there are stars, including the prestigious "Golden Pebble of Honor" (won 27 times). Every year a GOG climbs the highest cloud to perform the Ritual of Plenty — this is how seasons are invented.</p>
         </div>
+        
+        <div style="margin-top: 32px; padding: 24px; background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.05)); border-radius: 16px; border: 1.5px solid rgba(99,102,241,0.3);">
+          <h3 style="margin-top: 0; color: #818cf8;">Created By</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div>
+              <h4 style="color: #e0e7ff; margin-bottom: 8px;">🎨 ZIGBYTT</h4>
+              <p style="margin: 0; color: #cbd5e1; font-size: 14px;">The Inventor of GOGs • Draws rough sketches and wild concepts that start every creation</p>
+              <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none;">Instagram</a></p>
+            </div>
+            <div>
+              <h4 style="color: #e0e7ff; margin-bottom: 8px;">🌙 SHADOWH3ART</h4>
+              <p style="margin: 0; color: #cbd5e1; font-size: 14px;">The Finisher • Makes everything clean, polished, and absolutely gorgeous</p>
+              <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #818cf8; text-decoration: none;">Carrd</a></p>
+            </div>
+          </div>
+        </div>
         <h2 style="margin-top: 32px;">Epic Accomplishments</h2>
         <div class="accomplishments-grid" id="accomplishmentGrid">
           <!-- Accomplishments will be populated by JavaScript -->
         </div>
         <div style="text-align: center; margin-top: 24px;">
-            <button class="reroll-btn" onclick="rerollAccomplishments(); playSound('reroll.mp3')">🎲 Reroll Accomplishments</button>
+          <button class="reroll-btn" onclick="rerollAccomplishments(); playSound('epicsnd.mp3')">🎲 Reroll Accomplishments</button>
         </div>
       </section>
 
@@ -517,7 +533,7 @@
           <p class="muted">Finding a random GOG…</p>
         </div>
         <div style="text-align: center; margin-top: 24px;">
-          <button class="reroll-btn" onclick="loadRandomGog(); playSound('reroll.mp3')">🎲 Another Random GOG</button>
+          <button class="reroll-btn" onclick="loadRandomGog(); playSound('epicsnd.mp3')">🎲 Another Random GOG</button>
         </div>
       </section>
     </main>
@@ -815,7 +831,7 @@
                 card.className = 'accomplishment-card';
                 card.onclick = () => {
                     toggleAccomplishment(card);
-                    playSound('epicsnd.mp3');
+                    playSound('reroll.mp3');
                 };
                 
                 const avatar = document.createElement('img');
