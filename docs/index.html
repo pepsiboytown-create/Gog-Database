@@ -484,10 +484,16 @@
     <button id="bgMusicControl" title="Click to mute/unmute">
         🎵
     </button>
+    <div style="position:fixed;top:0;right:0;z-index:1000;pointer-events:none">
+        <!-- Default gnrcounter.com code for https://gogdatabase.org -->
+        <script language="JavaScript" type="text/javascript" src="https://gnrcounter.com/counter.php?accId=2fe141aad78a5acca4b6c80ce01d9078"></script>
+    <!-- End of gnrcounter.com Code -->
+    </div>
+  
 
     <div class="header">
-        <h1>GOGs</h1>
-        <p class="tagline">Tiny characters. Big personalities. Do silly things.</p>
+        <h1>The GOG Database</h1>
+        <p class="tagline">Silly little guys. Big personalities.</p>
         <p id="gogCounter" style="color: #009ddc; font-size: 14px; margin: 8px 0 0 0; font-weight: 500;">Total GOGs: 0</p>
         <div class="nav">
             <button class="nav-btn" onclick="showPage('about'); playSound('button.mp3')">About GOGs</button>
@@ -502,25 +508,25 @@
       <section id="about" class="page">
         <h2>About GOGs</h2>
         <div class="prose">
-          <p>GOGs are ancient cosmic beings that accidentally discovered tacos and then taught whole civilisations how to moonwalk. They've won more awards than there are stars, including the prestigious "Golden Pebble of Honor" (won 27 times). Every year a GOG climbs the highest cloud to perform the Ritual of Plenty — this is how seasons are invented.</p>
+          <p>GOGs are ancient cosmic beings that resemble sock puppets and hop around on their one leg. They've won the "Golden Pebble of Honor" award 27 times for their love of pebbles. You can find GOGs just about everywhere, copying the looks of just about anything. Each GOG has its own unique personality, but they all love to spin!</p>
         </div>
         
         <div style="margin-top: 32px; padding: 24px; background: linear-gradient(135deg, rgba(0,157,220,0.08), rgba(103,97,168,0.05)); border-radius: 16px; border: 1.5px solid rgba(0,157,220,0.3);">
-          <h3 style="margin-top: 0; color: #009ddc;">Created By</h3>
+          <h3 style="margin-top: 0; color: #009ddc;">Original artwork and concepts by:</h3>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
             <div>
               <h4 style="color: #f1f5f9; margin-bottom: 8px;">🎨 ZIGBYTT</h4>
-              <p style="margin: 0; color: #cbd5e1; font-size: 14px;">The Inventor of GOGs • Draws rough sketches and wild concepts that start every creation</p>
+              <p style="margin: 0; color: #cbd5e1; font-size: 14px;">The rough drawing guy, Master of gog tomfoolery</p>
               <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Instagram</a> | <a href="https://www.youtube.com/@zigbytt5130" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Youtube</a></p>
             </div>
             <div>
               <h4 style="color: #f1f5f9; margin-bottom: 8px;">🌙 SHADOWH3ART</h4>
-              <p style="margin: 0; color: #cbd5e1; font-size: 14px;">The Finisher • Makes everything clean, polished, and absolutely gorgeous</p>
+              <p style="margin: 0; color: #cbd5e1; font-size: 14px;">The arty guy, Master of gog design</p>
               <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Carrd</a></p>
             </div>
           </div>
         </div>
-        <h2 style="margin-top: 32px;">Epic Accomplishments</h2>
+        <h2 style="margin-top: 32px;">Random Gog Accomplishments</h2>
         <div class="accomplishments-grid" id="accomplishmentGrid">
           <!-- Accomplishments will be populated by JavaScript -->
         </div>
@@ -541,8 +547,8 @@
             <option value="none">Sort by...</option>
             <option value="name-asc">Name (A-Z)</option>
             <option value="name-desc">Name (Z-A)</option>
-            <option value="date-asc">Date Added (Oldest)</option>
-            <option value="date-desc">Date Added (Newest)</option>
+            <option disabled value="date-asc">Date Added (Oldest)</option>
+            <option disabled value="date-desc">Date Added (Newest)</option>
           </select>
         </div>
         <div id="gogGrid" class="gog-grid">
@@ -552,38 +558,38 @@
 
       <section id="creators" class="page hidden">
         <h2>GOG Creators</h2>
-        <p class="muted" style="font-style: italic; margin-bottom: 24px;">The visionaries behind the chaos, meet the brilliant minds (and one moderately-skilled hamster) responsible for GOGs:</p>
+        <p class="muted" style="font-style: italic; margin-bottom: 24px;">the mammals responsible for GOGs:</p>
         
         <div class="creator-card">
           <h3>🎨 ZigbyTT</h3>
-          <p><strong>Title:</strong> The Idea Person & Concept Artist</p>
-          <p><strong>Specialty:</strong> Early prototype GOG drawings, wild ideas, creative direction</p>
-          <p><strong>Known For:</strong> Coming up with the most chaotic and hilarious GOG concepts. Sketches first drafts and wild proto-designs. Never afraid to push creative boundaries.</p>
-          <p><strong>Payment Terms:</strong> Accepts payment in stickers, confetti, and creative compliments</p>
-          <p><strong>Fun Fact:</strong> Once drew a GOG so weird that even Shadowh3art had to ask for clarification.</p>
-          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Instagram</a></p>
+          <p><strong>Title:</strong> The rough drawing guy </p>
+          <p><strong>Specialty:</strong> off the cuff gog drawings mostly stemming from random bursts of inspiration</p>
+          <p><strong>Known For:</strong> the patented zigbytt sidequest, while doing one thing he'll often get an idea and go off to do something else</p>
+          <p><strong>Payment Terms:</strong> pepsi max™ cherry</p>
+          <p><strong>Fun Fact:</strong> Once drew a GOG so weird that even Shadowh3art had to put it down.</p>
+          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Instagram</a> | <a href="https://www.youtube.com/@zigbytt5130" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Youtube</a></p>
         </div>
 
         <div class="creator-card">
           <h3>🌙 Shadowh3art</h3>
-          <p><strong>Title:</strong> The Finisher & Polish Master</p>
-          <p><strong>Specialty:</strong> Making GOGs look clean and professional, final art direction</p>
-          <p><strong>Known For:</strong> Taking ZigbyTT's wild sketches and turning them into gorgeous polished GOGs. Has impeccable taste and pixel-perfect precision. Makes everything look effortlessly cool.</p>
-          <p><strong>Payment Terms:</strong> Prefers payment in clean aesthetics, smooth animations, and compliments about their art</p>
-          <p><strong>Fun Fact:</strong> Can polish a GOG so well that it makes people question why they didn't think of it first.</p>
+          <p><strong>Title:</strong> The artist guy</p>
+          <p><strong>Specialty:</strong> The gog cleaner, making gogs look clean for comics on their instagram</p>
+          <p><strong>Known For:</strong> Hyper gog autism</p>
+          <p><strong>Payment Terms:</strong> Gog themed stickers</p>
+          <p><strong>Fun Fact:</strong> Can only eat a maximum of 6 chocolate chip cookies before getting sick.</p>
           <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Carrd</a></p>
         </div>
         <div class="creator-card">
             <h3>🔥 Marble Helios</h3>
-            <p><strong>Title:</strong> The Prime Hater of GOGs</p>
-            <p><strong>Specialty:</strong> Scheming endlessly to sabotage GOGs, master of anti-GOG tactics</p>
-            <p><strong>Known For:</strong> Obsessively plotting against ZigbyTT’s creations, determined to unravel every polished GOG. His taste runs toward chaos, and his precision is in finding flaws others miss.</p>
-            <p><strong>Payment Terms:</strong> Accepts rewards in ruined aesthetics, broken animations, and praise for his relentless vendettas</p>
-            <p><strong>Fun Fact:</strong> Can spot a GOG from miles away and instantly devise a plan to make its life miserable.</p>
+            <p><strong>Title:</strong> The gog hater</p>
+            <p><strong>Specialty:</strong> Crushing the spirit of the other two</p>
+            <p><strong>Known For:</strong> Ruining the jokes behind gogs</p>
+            <p><strong>Payment Terms:</strong> Spite</p>
+            <p><strong>Fun Fact:</strong> Eats grass and moos when nobody is looking</p>
         </div>
 
         <p class="prose" style="margin-top: 24px; padding: 16px; background: rgba(0,157,220,0.05); border-left: 4px solid rgba(0,157,220,0.4); border-radius: 8px;">
-          <strong style="color: #009ddc;">Quote from both creators:</strong> "We have no idea how any of this works anymore. We just keep adding features and hope nobody notices." — ZigbyTT & Shadowh3art, circa Never
+          <strong style="color: #009ddc;">Quote from both creators:</strong> "how the fuck did we get a .org domain? they're just stupid little guys" — ZigbyTT & Shadowh3art, circa 29/11/2025
         </p>
       </section>
 
