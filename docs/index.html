@@ -7,6 +7,15 @@
     <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
+    <meta property="og:title" content="The GOG Database">
+    <meta property="og:description" content="Silly little guys. Big personalities. Ancient cosmic sock puppets that hop around on one leg and love pebbles. How did they get a .org domain? Nobody knows.">
+    <meta property="og:image" content="https://gogdatabase.org/gogs/elvis%20gogley.png">
+    <meta property="og:url" content="https://gogdatabase.org">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The GOG Database">
+    <meta name="twitter:description" content="just stupid little guys. they spin and hop around. 300+ GOGs. Nobody understands how this got a .org domain.">
+    <meta name="twitter:image" content="https://gogdatabase.org/gogs/elvis%20gogley.png">
     <link rel="icon" type="image/png" href="./gogs/elvis gogley.png">
     <title>GOGs — Silly Little Characters</title>
     <style>
@@ -15,7 +24,7 @@
         body {
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #2a2d34 0%, #1f2a35 50%, #243341 100%);
+            background: linear-gradient(135deg, #000000 0%, #12130f 50%, #0a0c08 100%);
             background-attachment: fixed;
             min-height: 100vh;
             color: #f1f5f9;
@@ -29,8 +38,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(0,157,220,0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(103,97,168,0.05) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 50%, rgba(5,102,141,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(204,41,54,0.15) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -39,24 +48,24 @@
             z-index: 1;
             padding: 60px 20px;
             text-align: center;
-            background: linear-gradient(135deg, rgba(0,157,220,0.12), rgba(242,100,48,0.08));
-            border-bottom: 2px solid rgba(0,157,220,0.3);
+            background: linear-gradient(135deg, rgba(5,102,141,0.25), rgba(204,41,54,0.2));
+            border-bottom: 4px solid #cc2936;
             backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 32px rgba(204,41,54,0.3);
         }
         h1 {
             font-size: 56px;
             margin: 0 0 12px;
             font-weight: 800;
-            background: linear-gradient(135deg, #009ddc, #f26430, #6761a8);
+            background: linear-gradient(135deg, #427aa1, #cc2936, #05668d);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: textGlow 3s ease-in-out infinite;
         }
         @keyframes textGlow {
-            0%, 100% { filter: drop-shadow(0 0 10px rgba(0,157,220,0.3)); }
-            50% { filter: drop-shadow(0 0 20px rgba(0,157,220,0.6)); }
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(204,41,54,0.5)); }
+            50% { filter: drop-shadow(0 0 30px rgba(204,41,54,0.8)); }
         }
         .tagline {
             margin: 0;
@@ -78,13 +87,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .nav-btn {
-            background: linear-gradient(135deg, rgba(0,157,220,0.1), rgba(242,100,48,0.05));
-            border: 1.5px solid rgba(0,157,220,0.4);
-            color: #009ddc;
+            background: linear-gradient(135deg, rgba(5,102,141,0.2), rgba(66,122,161,0.12));
+            border: 2px solid #427aa1;
+            color: #ffffff;
             padding: 11px 20px;
             border-radius: 24px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             backdrop-filter: blur(10px);
@@ -105,10 +114,10 @@
             left: 100%;
         }
         .nav-btn:hover {
-            background: linear-gradient(135deg, rgba(0,157,220,0.25), rgba(0,155,114,0.15));
-            border-color: #009ddc;
+            background: linear-gradient(135deg, rgba(5,102,141,0.35), rgba(204,41,54,0.25));
+            border-color: #cc2936;
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(0,157,220,0.25);
+            box-shadow: 0 12px 32px rgba(204,41,54,0.5);
         }
         .nav-btn:active {
             transform: translateY(0);
@@ -141,10 +150,10 @@
             margin-top: 20px;
         }
         .gog-item {
-            background: linear-gradient(135deg, rgba(0,157,220,0.08), rgba(0,155,114,0.03));
+            background: linear-gradient(135deg, rgba(5,102,141,0.12), rgba(66,122,161,0.06));
             border-radius: 14px;
             overflow: hidden;
-            border: 1.5px solid rgba(0,157,220,0.2);
+            border: 2px solid #05668d;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
             position: relative;
@@ -156,7 +165,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(129,140,248,0.1), transparent);
+            background: linear-gradient(135deg, rgba(204,41,54,0.25), transparent);
             opacity: 0;
             transition: opacity 0.3s ease;
             z-index: 1;
@@ -166,9 +175,9 @@
             opacity: 1;
         }
         .gog-item:hover {
-            border-color: rgba(0,157,220,0.6);
+            border-color: #cc2936;
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 48px rgba(0,157,220,0.2);
+            box-shadow: 0 20px 48px rgba(204,41,54,0.45);
         }
         .gog-img {
             width: 100%;
@@ -182,10 +191,10 @@
         }
         .gog-label {
             padding: 12px;
-            font-weight: 600;
-            color: #009ddc;
+            font-weight: 700;
+            color: #ffffff;
             text-align: center;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.6);
             font-size: 13px;
             word-break: break-word;
         }
@@ -195,10 +204,10 @@
             gap: 20px;
             align-items: center;
             padding: 40px;
-            background: linear-gradient(135deg, rgba(0,157,220,0.1), rgba(103,97,168,0.05));
+            background: linear-gradient(135deg, rgba(5,102,141,0.18), rgba(204,41,54,0.12));
             border-radius: 16px;
-            border: 1.5px solid rgba(0,157,220,0.3);
-            box-shadow: 0 8px 24px rgba(0,157,220,0.1);
+            border: 2px solid #427aa1;
+            box-shadow: 0 8px 24px rgba(204,41,54,0.25);
         }
         .random-box img {
             max-width: 90%;
@@ -207,7 +216,7 @@
             height: auto;
             object-fit: contain;
             border-radius: 14px;
-            box-shadow: 0 20px 48px rgba(0,157,220,0.25);
+            box-shadow: 0 20px 48px rgba(204,41,54,0.4);
             animation: floatIn 0.6s ease-out;
         }
         @keyframes floatIn {
@@ -225,23 +234,23 @@
         .muted { color: #94a3b8; }
         .hidden { display: none !important; }
         .creator-card {
-            background: linear-gradient(135deg, rgba(0,157,220,0.1), rgba(103,97,168,0.05));
+            background: linear-gradient(135deg, rgba(5,102,141,0.12), rgba(66,122,161,0.08));
             padding: 24px;
             border-radius: 16px;
-            border: 2px solid rgba(103,97,168,0.3);
+            border: 2px solid #05668d;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             margin: 16px 0;
         }
         .creator-card:hover {
-            border-color: rgba(103,97,168,0.6);
+            border-color: #cc2936;
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(103,97,168,0.15);
-            background: linear-gradient(135deg, rgba(0,157,220,0.15), rgba(103,97,168,0.1));
+            box-shadow: 0 12px 32px rgba(204,41,54,0.3);
+            background: linear-gradient(135deg, rgba(204,41,54,0.15), rgba(66,122,161,0.1));
         }
         .creator-card h3 {
             margin: 0 0 8px;
-            color: #009ddc;
+            color: #ff6b6b;
             font-size: 20px;
         }
         .creator-card p {
@@ -257,10 +266,10 @@
             margin-top: 24px;
         }
         .accomplishment-card {
-            background: linear-gradient(135deg, rgba(0,157,220,0.08), rgba(242,100,48,0.03));
+            background: linear-gradient(135deg, rgba(5,102,141,0.1), rgba(66,122,161,0.05));
             padding: 20px;
             border-radius: 14px;
-            border: 1.5px solid rgba(0,157,220,0.2);
+            border: 2px solid #427aa1;
             backdrop-filter: blur(8px);
             transition: all 0.4s ease;
             display: flex;
@@ -271,10 +280,10 @@
             min-height: 200px;
         }
         .accomplishment-card:hover {
-            border-color: rgba(0,157,220,0.5);
+            border-color: #cc2936;
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0,157,220,0.15);
-            background: linear-gradient(135deg, rgba(0,157,220,0.12), rgba(242,100,48,0.06));
+            box-shadow: 0 12px 32px rgba(204,41,54,0.3);
+            background: linear-gradient(135deg, rgba(204,41,54,0.12), rgba(66,122,161,0.08));
         }
         .accomplishment-card.expanded {
             grid-column: span 1;
@@ -284,7 +293,7 @@
             height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(0,157,220,0.3);
+            border: 2px solid #427aa1;
             flex-shrink: 0;
         }
         .accomplishment-content {
@@ -314,9 +323,9 @@
             margin: 12px 0 0 0;
         }
         .accomplishment-creator {
-            color: #009ddc;
+            color: #ff6b6b;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             margin-top: auto;
             font-style: italic;
             max-height: 0;
@@ -332,7 +341,7 @@
             position: absolute;
             top: 16px;
             right: 16px;
-            color: #009ddc;
+            color: #427aa1;
             font-size: 12px;
             transition: transform 0.4s ease;
         }
@@ -340,21 +349,21 @@
             transform: rotate(180deg);
         }
         .reroll-btn {
-            background: linear-gradient(135deg, #009ddc, #009b72);
+            background: linear-gradient(135deg, #cc2936, #05668d);
             color: white;
-            border: none;
+            border: 2px solid #cc2936;
             padding: 12px 24px;
             border-radius: 8px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,157,220, 0.3);
+            box-shadow: 0 4px 16px rgba(204,41,54, 0.5);
         }
         .reroll-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,157,220, 0.5);
-            background: linear-gradient(135deg, #00b8f0, #009b72);
+            box-shadow: 0 8px 24px rgba(204,41,54, 0.7);
+            background: linear-gradient(135deg, #ff3d4d, #0a7db3);
         }
         .reroll-btn:active {
             transform: translateY(0);
@@ -369,8 +378,8 @@
             bottom: -8px;
             left: 0;
             width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, #009ddc, #f26430);
+            height: 4px;
+            background: linear-gradient(90deg, #427aa1, #cc2936);
             border-radius: 2px;
         }
         footer {
@@ -383,12 +392,12 @@
             transition: all 0.3s ease;
         }
         #sortFilter:hover {
-            border-color: rgba(0,157,220,0.6);
-            background: linear-gradient(135deg, rgba(0,157,220,0.12), rgba(242,100,48,0.06)) !important;
-            box-shadow: 0 4px 12px rgba(0,157,220,0.15);
+            border-color: #cc2936;
+            background: linear-gradient(135deg, rgba(5,102,141,0.15), rgba(204,41,54,0.1)) !important;
+            box-shadow: 0 4px 12px rgba(204,41,54,0.25);
         }
         #sortFilter option {
-            background: #2a2d34;
+            background: #12130f;
             color: #f1f5f9;
         }
         @keyframes floatAway {
@@ -452,8 +461,8 @@
             top: 20px;
             left: 20px;
             z-index: 9999;
-            background: linear-gradient(135deg, rgba(0,157,220,0.2), rgba(103,97,168,0.2));
-            border: 2px solid rgba(0,157,220,0.4);
+            background: linear-gradient(135deg, rgba(5,102,141,0.35), rgba(204,41,54,0.25));
+            border: 2px solid #427aa1;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -467,9 +476,9 @@
             backdrop-filter: blur(8px);
         }
         #bgMusicControl:hover {
-            background: linear-gradient(135deg, rgba(0,157,220,0.4), rgba(103,97,168,0.3));
-            border-color: rgba(0,157,220,0.8);
-            box-shadow: 0 8px 24px rgba(0,157,220,0.3);
+            background: linear-gradient(135deg, rgba(5,102,141,0.55), rgba(204,41,54,0.45));
+            border-color: #cc2936;
+            box-shadow: 0 8px 24px rgba(204,41,54,0.5);
         }
         #bgMusicControl.muted {
             opacity: 0.5;
@@ -495,7 +504,7 @@
         <h1>The GOG Database</h1>
         <p class="tagline">Silly little guys. Big personalities.</p>
         <p class="tagline">for gog related requests/comissions reach out to me at zigbytt@gogdatabase.org</p>
-        <p id="gogCounter" style="color: #009ddc; font-size: 14px; margin: 8px 0 0 0; font-weight: 500;">Total GOGs: 0</p>
+        <p id="gogCounter" style="color: #427aa1; font-size: 14px; margin: 8px 0 0 0; font-weight: 600;">Total GOGs: 0</p>
         <div class="nav">
             <button class="nav-btn" onclick="showPage('about'); playSound('button.mp3')">About GOGs</button>
             <button class="nav-btn" onclick="showPage('db'); playSound('button.mp3')">GOG Database</button>
@@ -512,18 +521,18 @@
           <p>GOGs are ancient cosmic beings that resemble sock puppets and hop around on their one leg. They've won the "Golden Pebble of Honor" award 27 times for their love of pebbles. You can find GOGs just about everywhere, copying the looks of just about anything. Each GOG has its own unique personality, but they all love to spin!</p>
         </div>
         
-        <div style="margin-top: 32px; padding: 24px; background: linear-gradient(135deg, rgba(0,157,220,0.08), rgba(103,97,168,0.05)); border-radius: 16px; border: 1.5px solid rgba(0,157,220,0.3);">
-          <h3 style="margin-top: 0; color: #009ddc;">Original artwork and concepts by:</h3>
+        <div style="margin-top: 32px; padding: 24px; background: linear-gradient(135deg, rgba(5,102,141,0.12), rgba(204,41,54,0.08)); border-radius: 16px; border: 2px solid #427aa1;">
+          <h3 style="margin-top: 0; color: #ff6b6b;">Original artwork and concepts by:</h3>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
             <div>
               <h4 style="color: #f1f5f9; margin-bottom: 8px;">🎨 ZIGBYTT</h4>
               <p style="margin: 0; color: #cbd5e1; font-size: 14px;">The rough drawing guy, Master of gog tomfoolery</p>
-              <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Instagram</a> | <a href="https://www.youtube.com/@zigbytt5130" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Youtube</a></p>
+              <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #427aa1; text-decoration: none;">Instagram</a> | <a href="https://www.youtube.com/@zigbytt5130" target="_blank" rel="noopener noreferrer" style="color: #427aa1; text-decoration: none;">Youtube</a></p>
             </div>
             <div>
               <h4 style="color: #f1f5f9; margin-bottom: 8px;">🌙 SHADOWH3ART</h4>
               <p style="margin: 0; color: #cbd5e1; font-size: 14px;">The arty guy, Master of gog design</p>
-              <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none;">Carrd</a></p>
+              <p style="margin-top: 12px; margin-bottom: 0;"><a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #427aa1; text-decoration: none;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #427aa1; text-decoration: none;">Carrd</a></p>
             </div>
           </div>
         </div>
@@ -540,11 +549,11 @@
         <h2>GOG Database</h2>
         <p class="muted">Click an image to view it full size</p>
         <div style="margin-bottom: 20px;">
-          <input type="text" id="gogSearch" placeholder="🔍 Search GOGs by name..." style="width: 100%; max-width: 500px; padding: 10px 14px; border-radius: 8px; border: 1.5px solid rgba(0,157,220,0.4); background: linear-gradient(135deg, rgba(0,157,220,0.06), rgba(0,155,114,0.02)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px);" />
-          <div id="searchResults" style="margin-top: 8px; color: #009ddc; font-size: 13px;"></div>
+          <input type="text" id="gogSearch" placeholder="🔍 Search GOGs by name..." style="width: 100%; max-width: 500px; padding: 10px 14px; border-radius: 8px; border: 2px solid #427aa1; background: linear-gradient(135deg, rgba(5,102,141,0.1), rgba(66,122,161,0.05)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px);" />
+          <div id="searchResults" style="margin-top: 8px; color: #427aa1; font-size: 13px;"></div>
         </div>
         <div style="margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
-          <select id="sortFilter" style="padding: 10px 14px; border-radius: 8px; border: 1.5px solid rgba(0,157,220,0.4); background: linear-gradient(135deg, rgba(0,157,220,0.06), rgba(0,155,114,0.02)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px); cursor: pointer;">
+          <select id="sortFilter" style="padding: 10px 14px; border-radius: 8px; border: 2px solid #427aa1; background: linear-gradient(135deg, rgba(5,102,141,0.1), rgba(66,122,161,0.05)); color: #f1f5f9; font-size: 14px; font-family: inherit; backdrop-filter: blur(8px); cursor: pointer;">
             <option value="none">Sort by...</option>
             <option value="name-asc">Name (A-Z)</option>
             <option value="name-desc">Name (Z-A)</option>
@@ -568,7 +577,7 @@
           <p><strong>Known For:</strong> the patented zigbytt sidequest, while doing one thing he'll often get an idea and go off to do something else</p>
           <p><strong>Payment Terms:</strong> pepsi max™ cherry</p>
           <p><strong>Fun Fact:</strong> Once drew a GOG so weird that even Shadowh3art had to put it down.</p>
-          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Instagram</a> | <a href="https://www.youtube.com/@zigbytt5130" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Youtube</a></p>
+          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/zigbert_twinturbinator" target="_blank" rel="noopener noreferrer" style="color: #427aa1; text-decoration: none; transition: color 0.3s;">Instagram</a> | <a href="https://www.youtube.com/@zigbytt5130" target="_blank" rel="noopener noreferrer" style="color: #427aa1; text-decoration: none; transition: color 0.3s;">Youtube</a></p>
         </div>
 
         <div class="creator-card">
@@ -578,7 +587,7 @@
           <p><strong>Known For:</strong> Hyper gog autism</p>
           <p><strong>Payment Terms:</strong> Gog themed stickers</p>
           <p><strong>Fun Fact:</strong> Can only eat a maximum of 6 chocolate chip cookies before getting sick.</p>
-          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #009ddc; text-decoration: none; transition: color 0.3s;">Carrd</a></p>
+          <p style="margin-top: 12px; margin-bottom: 0;"><strong>Follow:</strong> <a href="https://www.instagram.com/spiderh3art" target="_blank" rel="noopener noreferrer" style="color: #427aa1; text-decoration: none; transition: color 0.3s;">Instagram</a> | <a href="https://shadowheart-vrchat.carrd.co" target="_blank" rel="noopener noreferrer" style="color: #427aa1; text-decoration: none; transition: color 0.3s;">Carrd</a></p>
         </div>
         <div class="creator-card">
             <h3>🔥 Marble Helios</h3>
@@ -589,8 +598,8 @@
             <p><strong>Fun Fact:</strong> Eats grass and moos when nobody is looking</p>
         </div>
 
-        <p class="prose" style="margin-top: 24px; padding: 16px; background: rgba(0,157,220,0.05); border-left: 4px solid rgba(0,157,220,0.4); border-radius: 8px;">
-          <strong style="color: #009ddc;">Quote from both creators:</strong> "how the fuck did we get a .org domain? they're just stupid little guys" — ZigbyTT & Shadowh3art, circa 29/11/2025
+        <p class="prose" style="margin-top: 24px; padding: 16px; background: rgba(5,102,141,0.08); border-left: 4px solid #427aa1; border-radius: 8px;">
+          <strong style="color: #ff6b6b;">Quote from both creators:</strong> "how the fuck did we get a .org domain? they're just stupid little guys" — ZigbyTT & Shadowh3art, circa 29/11/2025
         </p>
       </section>
 
@@ -610,7 +619,7 @@
           <p style="font-size: 18px; margin-bottom: 24px;">The GOGs need your help! Every donation fuels our cosmic adventures, wild schemes, and ridiculous ideas that somehow always work out.</p>
           
           <div style="background: linear-gradient(135deg, rgba(0,157,220,0.1), rgba(103,97,168,0.1)); padding: 24px; border-radius: 12px; border: 1.5px solid rgba(0,157,220,0.3); margin-bottom: 32px;">
-            <h3 style="color: #009ddc; margin-top: 0;">Why Support the GOGs?</h3>
+            <h3 style="color: #ff6b6b; margin-top: 0;">Why Support the GOGs?</h3>
             <ul style="line-height: 1.8;">
               <li><strong>🎨 Creative Freedom:</strong> Your donations help us dream up even more absurd and hilarious GOG concepts that defy all logic and sense.</li>
               <li><strong>🚀 Epic Adventures:</strong> We need funds to document the GOGs' interstellar travels, cloud-walking expeditions, and secret taco conventions.</li>
@@ -621,13 +630,13 @@
           </div>
 
           <div style="background: linear-gradient(135deg, rgba(242,100,48,0.1), rgba(0,155,114,0.1)); padding: 24px; border-radius: 12px; border: 1.5px solid rgba(242,100,48,0.3); margin-bottom: 32px;">
-            <h3 style="color: #f26430; margin-top: 0;">What the GOGs Promise:</h3>
+            <h3 style="color: #9b2915; margin-top: 0;">What the GOGs Promise:</h3>
             <p>💬 <em>"With your support, we pledge to continue being absolutely ridiculous, creating content that makes no sense but somehow feels right, and maintaining our tradition of mysterious cosmic wisdom."</em> — The Council of GOGs</p>
             <p style="margin-bottom: 0;">💜 <em>"Honestly, we have no idea where this is going, but donations help us keep the dream alive. Also, tacos."</em> — Everyone</p>
           </div>
 
-          <div style="text-align: center; padding: 32px; background: linear-gradient(135deg, rgba(0,157,220,0.08), rgba(0,155,114,0.08)); border-radius: 12px; border: 2px solid rgba(0,157,220,0.4);">
-            <h3 style="margin-top: 0; color: #009ddc;">Support the GOG Mission</h3>
+          <div style="text-align: center; padding: 32px; background: linear-gradient(135deg, rgba(5,102,141,0.12), rgba(204,41,54,0.08)); border-radius: 12px; border: 2px solid #cc2936;">
+            <h3 style="margin-top: 0; color: #ff6b6b;">Support the GOG Mission</h3>
             <p style="margin-bottom: 24px; font-size: 16px; color: #cbd5e1;">Every donation helps keep the GOG dream alive!</p>
             <div id="donate-button-container">
               <div id="donate-button"></div>
