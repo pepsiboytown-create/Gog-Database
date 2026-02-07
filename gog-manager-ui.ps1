@@ -559,21 +559,29 @@ function Update-HTML {
         
         foreach ($file in $gogFiles) {
             $name = [System.IO.Path]::GetFileNameWithoutExtension($file)
-            $name = $name -replace '"', '\"'
+            # Properly escape JSON special characters including emojis
+            $name = $name -replace '\\', '\\'  # Escape backslashes first
+            $name = $name -replace '"', '\"'   # Escape quotes
             $designer = if ($script:gogData[$file]) { $script:gogData[$file].designer } else { "" }
+            $designer = $designer -replace '\\', '\\'
             $designer = $designer -replace '"', '\"'
+            # Use proper JSON object syntax
             $entry = "            { name: `"$name`", designer: `"$designer`", url: `"./gogs/$file`" }"
             $gogArray += $entry
         }
         
         $gogArrayString = $gogArray -join ",`n"
-        $htmlContent = Get-Content $HTMLPath -Raw
+        
+        # Read file with explicit UTF-8 without BOM
+        $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+        $htmlContent = [System.IO.File]::ReadAllText($HTMLPath, $utf8NoBom)
         
         $pattern = "const GOGS = \[[\s\S]*?\];"
         $replacement = "const GOGS = [`n$gogArrayString`n        ];"
         $newContent = $htmlContent -replace $pattern, $replacement
         
-        Set-Content $HTMLPath -Value $newContent -Encoding UTF8
+        # Write file with UTF8 without BOM
+        [System.IO.File]::WriteAllText($HTMLPath, $newContent, $utf8NoBom)
     }
     catch {
         [System.Windows.Forms.MessageBox]::Show("Error updating HTML: $_", "Error", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
