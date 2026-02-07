@@ -559,13 +559,13 @@ function Update-HTML {
         
         foreach ($file in $gogFiles) {
             $name = [System.IO.Path]::GetFileNameWithoutExtension($file)
-            # Properly escape JSON special characters including emojis
-            $name = $name -replace '\\', '\\'  # Escape backslashes first
-            $name = $name -replace '"', '\"'   # Escape quotes
             $designer = if ($script:gogData[$file]) { $script:gogData[$file].designer } else { "" }
-            $designer = $designer -replace '\\', '\\'
-            $designer = $designer -replace '"', '\"'
-            # Use proper JSON object syntax
+            
+            # Escape special characters for JavaScript
+            $name = $name.Replace('\', '\\').Replace('"', '\"')
+            $designer = $designer.Replace('\', '\\').Replace('"', '\"')
+            
+            # Create JSON object
             $entry = "            { name: `"$name`", designer: `"$designer`", url: `"./gogs/$file`" }"
             $gogArray += $entry
         }
@@ -575,6 +575,10 @@ function Update-HTML {
         # Read file with explicit UTF-8 without BOM
         $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
         $htmlContent = [System.IO.File]::ReadAllText($HTMLPath, $utf8NoBom)
+        
+        # Update deployment version for cache busting
+        $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+        $htmlContent = $htmlContent -replace 'content="v[^"]*"(?=\s*>.*deployment-version)', "content=`"v3.1-emoji-fix-$timestamp`""
         
         $pattern = "const GOGS = \[[\s\S]*?\];"
         $replacement = "const GOGS = [`n$gogArrayString`n        ];"
