@@ -909,8 +909,26 @@
                 label.className = 'gog-label';
                 label.textContent = gog.name;
                 
-                card.appendChild(img);
-                card.appendChild(label);
+                // Add designer name if available
+                let labelText = gog.name;
+                if (gog.designer && gog.designer.trim() !== '') {
+                    const designerLabel = document.createElement('div');
+                    designerLabel.className = 'gog-designer';
+                    designerLabel.textContent = 'by ' + gog.designer;
+                    designerLabel.style.fontSize = '0.85em';
+                    designerLabel.style.color = '#888';
+                    designerLabel.style.fontStyle = 'italic';
+                    designerLabel.style.marginTop = '4px';
+                    designerLabel.style.textAlign = 'center';
+                    designerLabel.style.width = '100%';
+                    card.appendChild(img);
+                    card.appendChild(label);
+                    card.appendChild(designerLabel);
+                } else {
+                    card.appendChild(img);
+                    card.appendChild(label);
+                }
+                
                 card.addEventListener('click', () => window.open(gog.url, '_blank'));
                 
                 grid.appendChild(card);
