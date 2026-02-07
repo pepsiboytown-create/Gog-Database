@@ -143,11 +143,5 @@ Write-Host "Total GOGs: $($gogFiles.Count)" -ForegroundColor Cyan
 Write-Host "Local Preview: http://localhost:8000" -ForegroundColor Cyan
 Write-Host "Live Site: https://pepsiboytown-create.github.io/Gog-Database/" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "Opening site in browser..." -ForegroundColor Yellow
-
-# Open the site
-Start-Process "https://pepsiboytown-create.github.io/Gog-Database/"
-
-Write-Host ""
 Write-Host "Press Enter to close..."
 Read-Host
