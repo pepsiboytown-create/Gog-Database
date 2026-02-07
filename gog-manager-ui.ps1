@@ -9,6 +9,7 @@ $DBPath = Join-Path (Join-Path $scriptPath "docs") "gogs-list.json"
 $GOGsPCDir = Join-Path $scriptPath "gogs"
 $GOGsWebDir = Join-Path (Join-Path $scriptPath "docs") "gogs"
 $HTMLPath = Join-Path (Join-Path $scriptPath "docs") "index.html"
+$DesignerDBPath = Join-Path $scriptPath "designers.json"
 
 # Data structures
 $script:gogData = @{}
@@ -29,6 +30,32 @@ function Read-Database {
         }
     }
     return @()
+}
+
+function Read-DesignersDB {
+    if (Test-Path $DesignerDBPath) {
+        try {
+            $content = Get-Content $DesignerDBPath -Raw
+            $designers = $content | ConvertFrom-Json
+            if ($null -eq $designers) { return @{} }
+            return $designers
+        }
+        catch {
+            return @{}
+        }
+    }
+    return @{}
+}
+
+function Save-DesignersDB {
+    param([hashtable]$Designers)
+    try {
+        $json = $Designers | ConvertTo-Json
+        Set-Content $DesignerDBPath -Value $json -Encoding UTF8
+    }
+    catch {
+        [System.Windows.Forms.MessageBox]::Show("Error saving designers: $_", "Error", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
+    }
 }
 
 function Get-PCGogs {
@@ -210,18 +237,30 @@ function Rename-GogFile {
 function Sync-Data {
     $pcGogs = Get-PCGogs
     $webGogs = Get-WebGogs
+    $designers = Read-DesignersDB
     
     $script:toAdd = @($pcGogs | Where-Object { $webGogs -notcontains $_ })
     
     $script:gogData = @{}
     foreach ($gog in $webGogs) {
-        $script:gogData[$gog] = @{ name = $gog; toRemove = $false; newName = $null; designer = "" }
+        $designer = if ($designers -and $designers.PSObject.Properties.Name -contains $gog) { $designers.$gog } else { "" }
+        $script:gogData[$gog] = @{ name = $gog; toRemove = $false; newName = $null; designer = $designer }
     }
 }
 
 function Update-GogsList {
     $panel = $script:gogsPanel
     $panel.Controls.Clear()
+    
+    if ($null -eq $script:gogData -or $script:gogData.Count -eq 0) {
+        $label = New-Object System.Windows.Forms.Label
+        $label.Text = "No GOGs on website"
+        $label.Location = New-Object System.Drawing.Point(10, 10)
+        $label.Size = New-Object System.Drawing.Size(300, 20)
+        $label.ForeColor = [System.Drawing.Color]::Gray
+        $panel.Controls.Add($label)
+        return
+    }
     
     $y = 10
     $gogsArray = @($script:gogData.Keys | Sort-Object)
@@ -260,11 +299,21 @@ function Update-GogsList {
         $gogPath = Join-Path $GOGsWebDir $gog
         if (Test-Path $gogPath) {
             try {
-                $imageBox.Image = [System.Drawing.Image]::FromFile($gogPath)
+                # Load image into memory to avoid file locking
+                $memoryStream = New-Object System.IO.MemoryStream
+                $fileStream = [System.IO.File]::OpenRead($gogPath)
+                $fileStream.CopyTo($memoryStream)
+                $fileStream.Close()
+                $fileStream.Dispose()
+                $memoryStream.Position = 0
+                $imageBox.Image = [System.Drawing.Image]::FromStream($memoryStream)
             }
             catch {
                 $imageBox.BackColor = [System.Drawing.Color]::LightGray
             }
+        }
+        else {
+            $imageBox.BackColor = [System.Drawing.Color]::LightGray
         }
         $control.Controls.Add($imageBox)
         
@@ -294,14 +343,29 @@ function Update-GogsList {
         $designerBtn.Size = New-Object System.Drawing.Size(60, 23)
         $designerBtn.BackColor = [System.Drawing.Color]::LightYellow
         $designerBtn.Font = New-Object System.Drawing.Font("Arial", 8)
+        $designerBtn.Tag = $gog
+        
         $designerBtn.Add_Click({
-            $gogName = $gog
-            $designer = Get-DesignerInput -CurrentDesigner $script:gogData[$gogName].designer
-            if ($null -ne $designer) {
-                $script:gogData[$gogName].designer = $designer
-                Update-GogsList
+            $gogName = $this.Tag
+            if ($null -ne $gogName -and $script:gogData.ContainsKey($gogName)) {
+                $currentDesigner = if ($script:gogData[$gogName].designer) { $script:gogData[$gogName].designer } else { "" }
+                $result = Get-DesignerInput -CurrentDesigner $currentDesigner
+                if ($null -ne $result) {
+                    $script:gogData[$gogName].designer = $result
+                    
+                    # Save to designers database immediately
+                    $designers = Read-DesignersDB
+                    $designers.$gogName = $result
+                    Save-DesignersDB -Designers $designers
+                    
+                    Update-GogsList
+                }
             }
-        }.GetNewClosure())
+            else {
+                [System.Windows.Forms.MessageBox]::Show("Error: Could not find GOG in database", "Error", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Error)
+            }
+        })
+        
         $control.Controls.Add($designerBtn)
         
         $renameBtn = New-Object System.Windows.Forms.Button
@@ -310,29 +374,33 @@ function Update-GogsList {
         $renameBtn.Size = New-Object System.Drawing.Size(60, 23)
         $renameBtn.BackColor = [System.Drawing.Color]::LightBlue
         $renameBtn.Font = New-Object System.Drawing.Font("Arial", 8)
+        $renameBtn.Tag = $gog
+        
         $renameBtn.Add_Click({
-            $gogName = $gog
-            $extension = [System.IO.Path]::GetExtension($gogName)
-            $currentNameWithoutExt = [System.Text.RegularExpressions.Regex]::Replace($gogName, '(\.[^.]*$)', '')
-            
-            $newNameInput = Get-RenameInput -CurrentName $currentNameWithoutExt -Title "Rename GOG"
-            
-            if ($null -ne $newNameInput -and $newNameInput -ne $currentNameWithoutExt) {
-                $newFullName = $newNameInput + $extension
+            $gogName = $this.Tag
+            if ($null -ne $gogName -and $script:gogData.ContainsKey($gogName)) {
+                $extension = [System.IO.Path]::GetExtension($gogName)
+                $currentNameWithoutExt = [System.Text.RegularExpressions.Regex]::Replace($gogName, '(\.[^.]*$)', '')
                 
-                # Rename in both PC and Web directories
-                $renamed = Rename-GogFile -OldName $gogName -NewName $newFullName -Directory $GOGsWebDir
-                if ($renamed) {
-                    Rename-GogFile -OldName $gogName -NewName $newFullName -Directory $GOGsPCDir | Out-Null
+                $newNameInput = Get-RenameInput -CurrentName $currentNameWithoutExt -Title "Rename GOG"
+                
+                if ($null -ne $newNameInput -and $newNameInput -ne $currentNameWithoutExt) {
+                    $newFullName = $newNameInput + $extension
                     
-                    # Update gogData
-                    $script:gogData[$newFullName] = $script:gogData[$gogName]
-                    $script:gogData.Remove($gogName)
-                    
-                    Update-GogsList
+                    # Rename in both PC and Web directories
+                    $renamed = Rename-GogFile -OldName $gogName -NewName $newFullName -Directory $GOGsWebDir
+                    if ($renamed) {
+                        Rename-GogFile -OldName $gogName -NewName $newFullName -Directory $GOGsPCDir | Out-Null
+                        
+                        # Update gogData
+                        $script:gogData[$newFullName] = $script:gogData[$gogName]
+                        $script:gogData.Remove($gogName)
+                        
+                        Update-GogsList
+                    }
                 }
             }
-        }.GetNewClosure())
+        })
         $control.Controls.Add($renameBtn)
         
         $deleteBtn = New-Object System.Windows.Forms.Button
@@ -341,11 +409,15 @@ function Update-GogsList {
         $deleteBtn.Size = New-Object System.Drawing.Size(60, 23)
         $deleteBtn.BackColor = if ($script:gogData[$gog].toRemove) { [System.Drawing.Color]::LightCoral } else { [System.Drawing.Color]::LightGray }
         $deleteBtn.Font = New-Object System.Drawing.Font("Arial", 8)
+        $deleteBtn.Tag = $gog
+        
         $deleteBtn.Add_Click({
-            $gogName = $gog
-            $script:gogData[$gogName].toRemove = -not $script:gogData[$gogName].toRemove
-            Update-GogsList
-        }.GetNewClosure())
+            $gogName = $this.Tag
+            if ($null -ne $gogName -and $script:gogData.ContainsKey($gogName)) {
+                $script:gogData[$gogName].toRemove = -not $script:gogData[$gogName].toRemove
+                Update-GogsList
+            }
+        })
         $control.Controls.Add($deleteBtn)
         
         $panel.Controls.Add($control)
@@ -385,11 +457,21 @@ function Update-AddList {
         $gogPath = Join-Path $GOGsPCDir $gog
         if (Test-Path $gogPath) {
             try {
-                $imageBox.Image = [System.Drawing.Image]::FromFile($gogPath)
+                # Load image into memory to avoid file locking
+                $memoryStream = New-Object System.IO.MemoryStream
+                $fileStream = [System.IO.File]::OpenRead($gogPath)
+                $fileStream.CopyTo($memoryStream)
+                $fileStream.Close()
+                $fileStream.Dispose()
+                $memoryStream.Position = 0
+                $imageBox.Image = [System.Drawing.Image]::FromStream($memoryStream)
             }
             catch {
                 $imageBox.BackColor = [System.Drawing.Color]::LightGray
             }
+        }
+        else {
+            $imageBox.BackColor = [System.Drawing.Color]::LightGray
         }
         $control.Controls.Add($imageBox)
         
@@ -408,8 +490,9 @@ function Update-AddList {
         $renameBtn.Location = New-Object System.Drawing.Point(325, 20)
         $renameBtn.Size = New-Object System.Drawing.Size(50, 26)
         $renameBtn.BackColor = [System.Drawing.Color]::LightBlue
+        $gogNameForNewRename = $gog
         $renameBtn.Add_Click({
-            $gogName = $gog
+            $gogName = $gogNameForNewRename
             $extension = [System.IO.Path]::GetExtension($gogName)
             $currentNameWithoutExt = [System.Text.RegularExpressions.Regex]::Replace($gogName, '(\.[^.]*$)', '')
             
@@ -600,6 +683,16 @@ $confirmBtn.Add_Click({
     Copy-ToWebDir
     Update-HTML
     
+    # Push to GitHub
+    try {
+        & git add "docs/gogs/" "docs/index.html" 2>&1 | Out-Null
+        & git commit -m "Update: GOGs database - $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" 2>&1 | Out-Null
+        & git push origin main 2>&1 | Out-Null
+    }
+    catch {
+        # Git push failed but continue
+    }
+    
     $removeMsg = if ($gogsToRemove.Count -gt 0) { 
         "`n`nRemoved: $($gogsToRemove.Count) GOG(s)"
     } else { 
@@ -607,7 +700,7 @@ $confirmBtn.Add_Click({
     }
     
     [System.Windows.Forms.MessageBox]::Show(
-        "Changes confirmed and applied!`nAdded: $($script:toAdd.Count) GOG(s)$removeMsg",
+        "Changes confirmed and applied!`nAdded: $($script:toAdd.Count) GOG(s)$removeMsg`n`nChanges pushed to GitHub.",
         "Success",
         [System.Windows.Forms.MessageBoxButtons]::OK,
         [System.Windows.Forms.MessageBoxIcon]::Information
