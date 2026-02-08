@@ -36,8 +36,14 @@ function Read-DesignersDB {
     if (Test-Path $DesignerDBPath) {
         try {
             $content = Get-Content $DesignerDBPath -Raw
-            $designers = $content | ConvertFrom-Json
-            if ($null -eq $designers) { return @{} }
+            $designersObj = $content | ConvertFrom-Json
+            if ($null -eq $designersObj) { return @{} }
+            
+            # Convert PSCustomObject to Hashtable
+            $designers = @{}
+            foreach ($property in $designersObj.PSObject.Properties) {
+                $designers[$property.Name] = $property.Value
+            }
             return $designers
         }
         catch {
@@ -243,8 +249,24 @@ function Sync-Data {
     
     $script:gogData = @{}
     foreach ($gog in $webGogs) {
-        $designer = if ($designers -and $designers.PSObject.Properties.Name -contains $gog) { $designers.$gog } else { "" }
+        $designer = if ($designers -and $designers.ContainsKey($gog)) { $designers[$gog] } else { "" }
         $script:gogData[$gog] = @{ name = $gog; toRemove = $false; newName = $null; designer = $designer }
+    }
+}
+
+function Update-DesignerLabel {
+    param([string]$GogName)
+    
+    foreach ($control in $script:gogsPanel.Controls) {
+        if ($control -is [System.Windows.Forms.Panel]) {
+            foreach ($subControl in $control.Controls) {
+                if ($subControl -is [System.Windows.Forms.Label] -and $subControl.Tag -eq $GogName) {
+                    $designer = if ([string]::IsNullOrWhiteSpace($script:gogData[$GogName].designer)) { "No designer" } else { $script:gogData[$GogName].designer }
+                    $subControl.Text = $designer
+                    return
+                }
+            }
+        }
     }
 }
 
@@ -335,6 +357,7 @@ function Update-GogsList {
         $designerLabel.AutoSize = $false
         $designerLabel.TextAlign = [System.Drawing.ContentAlignment]::TopLeft
         $designerLabel.ForeColor = [System.Drawing.Color]::DarkGray
+        $designerLabel.Tag = $gog
         $control.Controls.Add($designerLabel)
         
         $designerBtn = New-Object System.Windows.Forms.Button
@@ -355,10 +378,10 @@ function Update-GogsList {
                     
                     # Save to designers database immediately
                     $designers = Read-DesignersDB
-                    $designers.$gogName = $result
+                    $designers[$gogName] = $result
                     Save-DesignersDB -Designers $designers
                     
-                    Update-GogsList
+                    Update-DesignerLabel -GogName $gogName
                 }
             }
             else {
